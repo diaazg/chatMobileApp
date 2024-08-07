@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
 const splashTitle = TextStyle(
-  fontFamily: 'SplashFont'
+  fontSize: 50,
+  fontWeight:FontWeight.w500,
+  fontFamily: 'Poppins'
 );

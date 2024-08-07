@@ -1,3 +1,4 @@
+import 'package:chat/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,6 +9,12 @@ class HomeScreen extends StatelessWidget {
     return const SafeArea(
       child:Scaffold(
         backgroundColor: Colors.amber,
+        body:Center(
+          child: Text(
+               'Hello',
+               style:splashTitle,
+          ),
+        )
       ) 
     
     );
