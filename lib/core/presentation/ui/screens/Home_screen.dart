@@ -13,15 +13,23 @@ class HomeScreen extends StatelessWidget {
         child: Scaffold(
       backgroundColor: Colors.white,
       body: Container(
+          padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage('$imagesPath/back.jpg'))),
-          child: Center(
-            child: Text(
-              Strings.welcomPageTitle.getWord(1),
-              style: splashTitle,
-            ),
+          child: SizedBox(
+            
+            width: double.infinity,
+            child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 mainAxisAlignment: MainAxisAlignment.start,
+                children: List.generate(4, (index) {
+              return Text(
+                Strings.welcomPageTitle.getWord(index),
+                style: index <=1?splashTitleMedium:splashTitleBold,
+              );
+            })),
           )),
     ));
   }
