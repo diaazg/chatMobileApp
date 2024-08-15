@@ -1,5 +1,7 @@
+import 'package:chat/core/presentation/ui/widgets/buttons/sign_up_box.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_divide_line.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_splash_title.dart';
+import 'package:chat/core/presentation/ui/widgets/login_text.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20),
-                CustomDivideLine()
+                CustomDivideLine(),
+                SizedBox(height: 20),
+                SignUpButton(),
+                SizedBox(height: 20),
+                LoginText()
               ],
             ),
           )),
