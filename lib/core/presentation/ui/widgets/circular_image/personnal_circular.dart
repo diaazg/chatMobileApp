@@ -12,14 +12,11 @@ class PersonnalCirculairePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50.0.responsiveHeight(screenSize.height),
-      width: 50.0.responsiveHeight(screenSize.height),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          image: const DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('$imagesPath/profile.JPG'))),
+    return CircleAvatar(
+      radius:25.0.responsiveHeight(screenSize.height) ,
+      backgroundImage:const AssetImage('$imagesPath/profile.JPG') ,
     );
   }
 }
+
+

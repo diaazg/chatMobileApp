@@ -13,7 +13,7 @@ class StoryCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.only(left: 10),
       child: SizedBox(
         width: height*0.7,
         child: Column(
