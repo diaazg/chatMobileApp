@@ -24,4 +24,9 @@ extension DoubleExtension on double {
     double responsiveHeight = this * facotr;
     return responsiveHeight;
   }
+    double responsiveWidth(double screenWidth){
+    double facotr = screenWidth / mainScreenWidth;
+    double responsiveWidth = this * facotr;
+    return responsiveWidth;
+  }
 }
