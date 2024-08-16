@@ -24,46 +24,52 @@ class HomeScreen extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage('$imagesPath/back.jpg'))),
-          child:  SizedBox(
+          child: SizedBox(
             width: double.infinity,
             child: Column(
               children: [
                 const Image(image: AssetImage('$imagesPath/logo.png')),
                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
                 const SplashText(),
-                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
                 const Text(
                   Strings.welcomPageSubTitle,
                   style: TextStyle(color: Colors.white38, fontSize: 18),
                 ),
-                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
                 const SizedBox(
                   width: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      PlatfromIcon(icon: 'facebook',borderWhite: true),
-                      PlatfromIcon(icon: 'google',borderWhite: true),
-                      PlatfromIcon(icon: 'apple',borderWhite: true)
+                      PlatfromIcon(icon: 'facebook', borderWhite: true),
+                      PlatfromIcon(icon: 'google', borderWhite: true),
+                      PlatfromIcon(icon: 'apple', borderWhite: true)
                     ],
                   ),
                 ),
-                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
-                const CustomDivideLine(isWhite: true,),
-                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
-                const CustomButton(title: 'Sign up withn mail',backColor: Colors.white,fontColor: Colors.black,),
-                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
-                GestureDetector(
+                SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                const CustomDivideLine(
+                  isWhite: true,
+                ),
+                SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                 CustomButton(
                   onTap: (){
-                    Navigator.pushNamed(context, '/loginScreen');
+                        Navigator.pushNamed(context, '/signupScreen');
                   },
-                  child: const LoginText()
-                  
-                  )
+                  title: 'Sign up withn mail',
+                  backColor: Colors.white,
+                  fontColor: Colors.black,
+                ),
+                SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/loginScreen');
+                    },
+                    child: const LoginText())
               ],
             ),
           )),
     ));
   }
 }
-

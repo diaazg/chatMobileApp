@@ -1,30 +1,24 @@
 import 'package:chat/core/presentation/ui/widgets/buttons/sign_up_box.dart';
-import 'package:chat/core/presentation/ui/widgets/custom_divide_line.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_form_field.dart';
 import 'package:chat/core/presentation/ui/widgets/navigate_back.dart';
-import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/core/presentation/ui/widgets/text_widgets/aligned_colored_text.dart';
-import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
 import 'package:chat/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  SignupScreen({super.key});
+  final List<double> zones = [.03, .7, .2];
   final _formkey = GlobalKey<FormState>();
-  final List<double> zones = [.03, .6, .3];
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(
-            screenMainPadding.responsiveHeight(screenSize.height)),
+        padding: const EdgeInsets.all(screenMainPadding),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -37,71 +31,60 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const AlignedColoredText(
-                        isRight: false, title: "Log in to Chatbox"),
+                        isRight: true, title: "Sign up with Email"),
                     SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
                     Text(
-                      "Welcome back! Sign in using your social account or email to continue us",
+                      "Get chatting with friends and family today by signing up for our chat app!",
                       textAlign: TextAlign.center,
                       style: titleRegular.copyWith(
                           color: Colors.black54, fontSize: ktextSize1),
                     ),
-                    SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
-                    const SizedBox(
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          PlatfromIcon(icon: 'facebook', borderWhite: false),
-                          PlatfromIcon(icon: 'google', borderWhite: false),
-                          PlatfromIcon(icon: 'apple_black', borderWhite: false)
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
-                    const CustomDivideLine(isWhite: false),
-                    SizedBox(height: 40.0.responsiveHeight(screenSize.height)),
                     Form(
                         key: _formkey,
-                        child:  Column(
+                        child: Column(
                           children: [
+                            const CustomFormFieldWidget(
+                              title: 'name',
+                              obscure: false,
+                            ),
+                            SizedBox(
+                                height:
+                                    25.0.responsiveHeight(screenSize.height)),
                             const CustomFormFieldWidget(
                               title: 'email',
                               obscure: false,
                             ),
-                            SizedBox(height: 25.0.responsiveHeight(screenSize.height)),
+                            SizedBox(
+                                height:
+                                    25.0.responsiveHeight(screenSize.height)),
                             const CustomFormFieldWidget(
                               title: 'password',
                               obscure: true,
                             ),
+                            SizedBox(
+                                height:
+                                    25.0.responsiveHeight(screenSize.height)),
+                            const CustomFormFieldWidget(
+                              title: 'confirm password',
+                              obscure: true,
+                            ),
                           ],
-                        )),
+                        ))
                   ],
                 ),
               ),
               SizedBox(
                 height: (screenSize.height - screenMainPadding) * zones[2],
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                        backColor: greenColors['mainGreen']!,
-                        fontColor: Colors.white,
-                        title: 'Log in'),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 10.0.responsiveHeight(screenSize.height),
-                          horizontal: 0),
-                      child: Text(
-                        "Forget password?",
-                        style: titleMedium.copyWith(
-                            color: greenColors['mainGreen'],
-                            fontSize: ktextSize1),
-                      ),
-                    )
+                        backColor: Color(0xFFF3F6F6),
+                        fontColor: Color(0xFF797C7B),
+                        title: 'Create an account'),
                   ],
                 ),
               )
-           
             ],
           ),
         ),
