@@ -1,4 +1,4 @@
-import 'package:chat/core/presentation/ui/screens/auth/login_screen.dart';
+import 'package:chat/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class ChatApp extends StatelessWidget {
@@ -7,9 +7,11 @@ class ChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   MaterialApp(
+      initialRoute: '/',
+      routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
       title: 'Chat App',
-      home: LoginScreen(),
+      
     );
   }
 }

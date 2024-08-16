@@ -4,6 +4,7 @@ import 'package:chat/core/presentation/ui/widgets/text_widgets/custom_splash_tit
 import 'package:chat/core/presentation/ui/widgets/text_widgets/login_text.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/constants.dart';
+import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils/strings.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -22,20 +24,20 @@ class HomeScreen extends StatelessWidget {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage('$imagesPath/back.jpg'))),
-          child: const SizedBox(
+          child:  SizedBox(
             width: double.infinity,
             child: Column(
               children: [
-                Image(image: AssetImage('$imagesPath/logo.png')),
-                SizedBox(height: 20),
-                SplashText(),
-                SizedBox(height: 20),
-                Text(
+                const Image(image: AssetImage('$imagesPath/logo.png')),
+                SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                const SplashText(),
+                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                const Text(
                   Strings.welcomPageSubTitle,
                   style: TextStyle(color: Colors.white38, fontSize: 18),
                 ),
-                SizedBox(height: 20),
-                SizedBox(
+                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                const SizedBox(
                   width: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,12 +48,18 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                CustomDivideLine(isWhite: true,),
-                SizedBox(height: 20),
-                CustomButton(title: 'Sign up withn mail',backColor: Colors.white,fontColor: Colors.black,),
-                SizedBox(height: 20),
-                LoginText()
+                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                const CustomDivideLine(isWhite: true,),
+                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                const CustomButton(title: 'Sign up withn mail',backColor: Colors.white,fontColor: Colors.black,),
+                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pushNamed(context, '/loginScreen');
+                  },
+                  child: const LoginText()
+                  
+                  )
               ],
             ),
           )),
