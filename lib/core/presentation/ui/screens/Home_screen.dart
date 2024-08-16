@@ -1,9 +1,10 @@
 import 'package:chat/core/presentation/ui/widgets/buttons/sign_up_box.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_divide_line.dart';
-import 'package:chat/core/presentation/ui/widgets/custom_splash_title.dart';
-import 'package:chat/core/presentation/ui/widgets/login_text.dart';
+import 'package:chat/core/presentation/ui/widgets/text_widgets/custom_splash_title.dart';
+import 'package:chat/core/presentation/ui/widgets/text_widgets/login_text.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/constants.dart';
+import 'package:chat/utils/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils/strings.dart';
 
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         child: Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(screenMainPadding),
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
@@ -39,16 +40,16 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      PlatfromIcon(icon: 'facebook'),
-                      PlatfromIcon(icon: 'google'),
-                      PlatfromIcon(icon: 'apple')
+                      PlatfromIcon(icon: 'facebook',borderWhite: true),
+                      PlatfromIcon(icon: 'google',borderWhite: true),
+                      PlatfromIcon(icon: 'apple',borderWhite: true)
                     ],
                   ),
                 ),
                 SizedBox(height: 20),
-                CustomDivideLine(),
+                CustomDivideLine(isWhite: true,),
                 SizedBox(height: 20),
-                SignUpButton(),
+                CustomButton(title: 'Sign up withn mail',backColor: Colors.white,fontColor: Colors.black,),
                 SizedBox(height: 20),
                 LoginText()
               ],

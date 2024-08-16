@@ -2,9 +2,10 @@ import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class PlatfromIcon extends StatelessWidget {
-  const PlatfromIcon({super.key, required this.icon});
+  const PlatfromIcon({super.key, required this.icon,required this.borderWhite});
 
   final String icon;
+  final bool borderWhite;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class PlatfromIcon extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(50),
-          border: Border.all(color: Colors.white, width: 1)),
+          border: Border.all(color: borderWhite?Colors.white:Colors.black, width: 1)),
       child: Image.asset('$imagesPath/platform/$icon.png'),
     );
   }

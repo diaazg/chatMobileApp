@@ -1,35 +1,31 @@
+import 'package:chat/utils/sizes.dart';
+import 'package:chat/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-class SignUpButton extends StatelessWidget {
-  const SignUpButton({
-    super.key,
+class CustomButton extends StatelessWidget {
+  const CustomButton({
+    super.key, required this.backColor, required this.fontColor, required this.title,
   });
+
+  final Color backColor;
+  final Color fontColor;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        
-      },
+      onTap: () {},
       child: Container(
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20)
-        ),
-        child: const Center(
-          child: Text(
-            "Sign up withn mail",
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: "Poppins",
-            fontWeight: FontWeight.w500,
-            fontSize: 15
-            ),),
+            color: backColor, borderRadius: BorderRadius.circular(20)),
+        child: Center(
+          child: Text(title,
+              style: titleMedium.copyWith(
+                  color: fontColor, fontSize: ktextSize1)),
         ),
       ),
     );
   }
 }
-

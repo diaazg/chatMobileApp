@@ -16,7 +16,7 @@ class SplashText extends StatelessWidget {
         children: List.generate(4, (index) {
           return Text(
             Strings.welcomPageTitle.getWord(index),
-            style: index <= 1 ? splashTitleMedium : splashTitleBold,
+            style: index <= 1 ? titleRegular : titleBold,
           );
         }));
   }

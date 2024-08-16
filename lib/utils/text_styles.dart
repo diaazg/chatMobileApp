@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
-const splashTitleMedium = TextStyle(
+const TextStyle titleMedium = TextStyle(
   fontSize: 70,
+  fontFamily: 'Poppins',
+  fontWeight:FontWeight.w500,
+  color: Colors.white
+);
+
+const titleBold = TextStyle(
+  fontSize: 70,
+  fontWeight:FontWeight.w700,
   fontFamily: 'Poppins',
   color: Colors.white
 );
 
-const splashTitleBold = TextStyle(
+const TextStyle titleRegular = TextStyle(
   fontSize: 70,
-  fontWeight:FontWeight.w700,
   fontFamily: 'Poppins',
   color: Colors.white
 );

@@ -1,3 +1,5 @@
+import 'package:chat/utils/sizes.dart';
+
 extension StringExtension on String{
     String getWord(int wordNumber){
       
@@ -12,5 +14,14 @@ extension StringExtension on String{
       return allWords[wordNumber];
      }
 
+  }
+}
+
+
+extension DoubleExtension on double {
+  double responsiveHeight(double screenHeight){
+    double facotr = screenHeight / mainScreenHeight;
+    double responsiveHeight = this * facotr;
+    return responsiveHeight;
   }
 }
