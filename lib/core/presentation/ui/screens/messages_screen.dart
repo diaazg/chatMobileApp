@@ -1,7 +1,7 @@
+import 'package:chat/core/presentation/ui/widgets/circular_image/my_story_circle.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/story_circule.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
-import 'package:chat/utils/constants.dart';
 import 'package:chat/utils/sizes.dart';
 import 'package:chat/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,13 @@ class MessagesScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (context, index) {
-                    return StoryCircle(height: (screenSize.height - screenMainPadding) * zones[1]);
+                    return index == 0
+                        ? MyStoryCircle(
+                            height: (screenSize.height - screenMainPadding) *
+                                zones[1])
+                        : StoryCircle(
+                            height: (screenSize.height - screenMainPadding) *
+                                zones[1]);
                   }),
             )
           ],
@@ -52,4 +58,3 @@ class MessagesScreen extends StatelessWidget {
     ));
   }
 }
-

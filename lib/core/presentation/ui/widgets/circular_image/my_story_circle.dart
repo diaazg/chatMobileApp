@@ -1,13 +1,14 @@
 import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class StoryCircle extends StatelessWidget {
-  const StoryCircle({
-    super.key,
-    required this.height,
+class MyStoryCircle extends StatelessWidget {
+  const MyStoryCircle({
+    super.key, required this.height, 
+   
   });
 
   final double height;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,19 @@ class StoryCircle extends StatelessWidget {
                   fit: BoxFit.cover,
                   image: AssetImage('$imagesPath/profile.JPG')),
               shape: BoxShape.circle),
+        child: Container(
+          alignment: Alignment.bottomRight,
+          child: Container(
+            height: 18,
+            
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white
+            ),
+            child: const Icon(Icons.add,color: Colors.black,size: 18,),
+          ),
+
+        ),
         ),
       ),
     );
