@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class MessagesScreen extends StatelessWidget {
   MessagesScreen({super.key});
-  List<double> zones = [.1, .09, .5];
+  List<double> zones = [.1, .14, .5];
 
   @override
   Widget build(BuildContext context) {
