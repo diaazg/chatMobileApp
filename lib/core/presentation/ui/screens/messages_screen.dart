@@ -6,7 +6,6 @@ import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
 import 'package:chat/utils/text_styles.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -87,10 +86,17 @@ class _MessagesScreenState extends State<MessagesScreen> {
                           itemBuilder: (context, index) {
                             final item = items[index];
                             return Dismissible(
+                              
                               direction: DismissDirection.endToStart,
                               background: Container(
+                                alignment: AlignmentDirectional.centerEnd,
                                 margin: const EdgeInsets.all(10),
-                                color: Colors.red,
+                                child: const CircleAvatar(
+                                    radius: 20,
+                                    backgroundColor: Colors.red,
+                                    child: Icon(Icons.delete_outline,color: Colors.white,),
+                                                              
+                                  )
                               ),
                 
                               key: Key(item),
