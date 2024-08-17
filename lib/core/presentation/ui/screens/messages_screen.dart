@@ -8,10 +8,16 @@ import 'package:chat/utils/sizes.dart';
 import 'package:chat/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class MessagesScreen extends StatelessWidget {
-  MessagesScreen({super.key});
-  List<double> zones = [.1, .12, .5];
+class MessagesScreen extends StatefulWidget {
+  const MessagesScreen({super.key});
+
+  @override
+  State<MessagesScreen> createState() => _MessagesScreenState();
+}
+
+class _MessagesScreenState extends State<MessagesScreen> {
+  List<double> zones = [.1, .12, .8];
+  final items = List<String>.generate(15, (i) => 'Item ${i + 1}');
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,6 @@ class MessagesScreen extends StatelessWidget {
         child: Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
-
         child: Column(
           children: [
             Padding(
@@ -61,25 +66,61 @@ class MessagesScreen extends StatelessWidget {
                   }),
             ),
             SizedBox(height: 30.0.responsiveHeight(screenSize.height)),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: screenMainPadding - 5,vertical: 5),
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(50))),
-              child: ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context,index){
-                 return ChatWidget(screenSize: screenSize);
-              }, separatorBuilder: (context,index){
-                return const SizedBox(height: 10,);
-              }, itemCount: 20)
-            )
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: screenMainPadding - 5, vertical: 5),
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(50))),
+                  constraints: BoxConstraints(
+                    minHeight: (screenSize.height - screenMainPadding) * zones[2],
+                    
+                  ),
+                  child: items.isNotEmpty
+                      ? ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final item = items[index];
+                            return Dismissible(
+                              background: Container(
+                                margin: const EdgeInsets.all(10),
+                                color: Colors.amber,
+                              ),
+                              key: Key(item),
+                              onDismissed: (direction) {
+                                setState(() {
+                                  items.removeAt(index);
+                                });
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('$item dismissed')));
+                              },
+                              child: ChatWidget(screenSize: screenSize),
+                            );
+                          },
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              height: 10,
+                            );
+                          },
+                          itemCount: items.length,
+                        )
+                      : Center(
+                          child: Text(
+                            "No chats",
+                            style: titleBold.copyWith(fontSize: 50,color: Colors.black),
+                          ),
+                        ),
+                );
+              },
+            ),
           ],
         ),
       ),
     ));
   }
 }
-

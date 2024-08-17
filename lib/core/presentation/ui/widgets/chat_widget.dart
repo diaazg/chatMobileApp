@@ -41,32 +41,35 @@ class ChatWidget extends StatelessWidget {
             ),
           ],
         ),
-        Column(
-          
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              "2 min ago",
-              style: titleRegular.copyWith(
-                  fontSize: ktextSize1 - 3,
-                  color: Colors.black54),
-            ),
-          
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: CircleAvatar(
-              
-                radius: 12,
-                backgroundColor: Colors.red,
-                child: Center(
-                  child: Text(
-                    "5",
-                    style: titleBold.copyWith(fontSize: 10),
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Column(
+            
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "2 min ago",
+                style: titleRegular.copyWith(
+                    fontSize: ktextSize1 - 3,
+                    color: Colors.black54),
+              ),
+            
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: CircleAvatar(
+                
+                  radius: 12,
+                  backgroundColor: Colors.red,
+                  child: Center(
+                    child: Text(
+                      "5",
+                      style: titleBold.copyWith(fontSize: 10),
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         )
       ],
     );
