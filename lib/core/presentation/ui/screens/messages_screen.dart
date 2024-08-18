@@ -18,7 +18,7 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   List<double> zones = [.1, .12, .8];
-  final items = List<String>.generate(4, (i) => 'Item ${i + 1}');
+  final items = List<String>.generate(7, (i) => 'Item ${i + 1}');
 
   @override
   Widget build(BuildContext context) {

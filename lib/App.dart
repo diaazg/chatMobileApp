@@ -6,12 +6,12 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   MaterialApp(
-      initialRoute: '/messagesScreen',
+    return MaterialApp(
+      
+      initialRoute: '/navigationScreen',
       routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
       title: 'Chat App',
-      
     );
   }
 }
