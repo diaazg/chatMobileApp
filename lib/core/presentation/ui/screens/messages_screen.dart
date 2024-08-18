@@ -2,6 +2,7 @@ import 'package:chat/core/presentation/ui/widgets/chat_widget.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/my_story_circle.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/story_circule.dart';
+import 'package:chat/core/presentation/ui/widgets/custom_swip_widget.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
@@ -17,7 +18,7 @@ class MessagesScreen extends StatefulWidget {
 
 class _MessagesScreenState extends State<MessagesScreen> {
   List<double> zones = [.1, .12, .8];
-  final items = List<String>.generate(15, (i) => 'Item ${i + 1}');
+  final items = List<String>.generate(4, (i) => 'Item ${i + 1}');
 
   @override
   Widget build(BuildContext context) {
@@ -76,8 +77,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(50))),
                   constraints: BoxConstraints(
-                    minHeight: (screenSize.height - screenMainPadding) * zones[2],
-                    
+                    minHeight:
+                        (screenSize.height - screenMainPadding) * zones[2],
                   ),
                   child: items.isNotEmpty
                       ? ListView.separated(
@@ -85,31 +86,17 @@ class _MessagesScreenState extends State<MessagesScreen> {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final item = items[index];
-                            return Dismissible(
-                              
-                              direction: DismissDirection.endToStart,
-                              background: Container(
-                                alignment: AlignmentDirectional.centerEnd,
-                                margin: const EdgeInsets.all(10),
-                                child: const CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor: Colors.red,
-                                    child: Icon(Icons.delete_outline,color: Colors.white,),
-                                                              
-                                  )
-                              ),
-                
-                              key: Key(item),
-                              onDismissed: (direction) {
-                                setState(() {
-                                  items.removeAt(index);
-                                });
-
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('$item dismissed')));
-                              },
-                              child: ChatWidget(screenSize: screenSize),
-                            );
+                            return LimitedSwipeWidget(
+                                key: ValueKey(item), // Assigning unique Key
+                                swipeLimit: 200.0,
+                                onDelete: () {
+                                  setState(() {
+                                    items.removeAt(index);
+                                    
+                                  });
+                                },
+                                child: ChatWidget(screenSize: screenSize,name: item,),
+                              );
                           },
                           separatorBuilder: (context, index) {
                             return const SizedBox(
@@ -121,7 +108,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       : Center(
                           child: Text(
                             "No chats",
-                            style: titleBold.copyWith(fontSize: 50,color: Colors.black),
+                            style: titleBold.copyWith(
+                                fontSize: 50, color: Colors.black),
                           ),
                         ),
                 );
@@ -133,3 +121,5 @@ class _MessagesScreenState extends State<MessagesScreen> {
     ));
   }
 }
+
+

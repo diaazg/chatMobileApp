@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 class ChatWidget extends StatelessWidget {
   const ChatWidget({
     super.key,
-    required this.screenSize,
+    required this.screenSize, required this.name,
   });
 
   final Size screenSize;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ChatWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Diaa Zellagui",
+                  name,
                   style: titleMedium.copyWith(
                       fontSize: 20, color: Colors.black),
                 ),
