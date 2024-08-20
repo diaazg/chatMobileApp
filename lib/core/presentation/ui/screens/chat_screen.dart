@@ -1,8 +1,7 @@
-import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
-import 'package:chat/core/presentation/ui/widgets/navigate_back.dart';
-import 'package:chat/utils/constants.dart';
+import 'package:chat/core/presentation/ui/widgets/chat_box.dart';
+import 'package:chat/core/presentation/ui/widgets/chat_screen_header.dart';
+import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
-import 'package:chat/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -15,38 +14,33 @@ class ChatScreen extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Padding(
         padding: const EdgeInsets.all(screenMainPadding - 10),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                navigateBack(context),
-                PersonnalCirculairePic(screenSize: screenSize),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      userName,
-                      style: titleMedium.copyWith(
-                          color: Colors.black, fontSize: 20),
-                    ),
-                    Text(
-                      state,
-                      style: titleRegular.copyWith(
-                          color: Colors.black45, fontSize: ktextSize1),
-                    ),
-                  ],
+            ChatScreenHeader(
+                screenSize: screenSize, userName: userName, state: state),
+            Expanded(
+                child: SizedBox(
+              child: ListView.builder(
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    color: Colors.red,
+                    height: 30,
+                    width: 100,
+                    );
+                }
                 ),
-                const Row(
-                  children: [
-                    ImageIcon(AssetImage('$imagesPath/icons/CallChat.png')),
-                    SizedBox(width: 20),
-                    ImageIcon(AssetImage('$imagesPath/icons/Video.png'))
-                  ],
-                )
-              ],
+            )),
+            SizedBox(
+              height: 60.0.responsiveHeight(screenSize.height),
+              child: const Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: ChatBox(),
+              ),
             )
           ],
         ),
