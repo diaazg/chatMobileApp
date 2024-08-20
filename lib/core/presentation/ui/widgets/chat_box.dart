@@ -2,10 +2,15 @@ import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ChatBox extends StatelessWidget {
-  const ChatBox({
-    super.key,
+   ChatBox({
+    super.key, required this.sendFunction,
   });
+
+
+  final Function(String message) sendFunction;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,26 +28,40 @@ class ChatBox extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 0),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  suffixIcon: ImageIcon(
-                    AssetImage('$imagesPath/icons/files.png'),
-                    size: 40,
-                  ),
+            child: TextFormField(
+              controller:_controller ,
+              
+              decoration: const InputDecoration(
+                
+                contentPadding: EdgeInsets.all(10),
+                hintText: 'Write a message',
+                border: InputBorder.none,
+                suffixIcon: ImageIcon(
+                  AssetImage('$imagesPath/icons/files.png'),
+                  size: 40,
                 ),
               ),
             ),
           ),
+        ),
+        GestureDetector(
+          onTap: (){
+           
+            if(_controller.text.isNotEmpty){
+              
+              sendFunction(_controller.text);
+              
+            }
+          },
+          child: CircleAvatar(
+            backgroundColor: greenColors['secondaryGreen'],
+            radius: 40,
+            child: const Icon(
+              Icons.send,
+              color: Colors.white,
+            ),
+          ),
         )
-       ,CircleAvatar(
-        backgroundColor: greenColors['secondaryGreen'],
-        radius: 40,
-        child: const Icon(Icons.send,color: Colors.white,),
-       )
       ],
     );
   }

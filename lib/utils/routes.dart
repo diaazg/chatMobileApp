@@ -13,6 +13,6 @@ class AppRoutes{
         '/signupScreen':(context) =>  SignupScreen(),
         '/messagesScreen':(context) =>  const MessagesScreen(),
         '/navigationScreen':(context) =>  const NavigationScreen(),
-        '/chatScreen':(context)=> const ChatScreen()
+        '/chatScreen':(context)=>  ChatScreen()
       };
 }
