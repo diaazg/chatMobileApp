@@ -9,6 +9,7 @@ class PersonnalCirculairePic extends StatelessWidget {
   });
 
   final Size screenSize;
+  
 
   @override
   Widget build(BuildContext context) {

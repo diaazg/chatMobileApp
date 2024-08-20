@@ -1,6 +1,7 @@
 import 'package:chat/core/presentation/ui/screens/Home_screen.dart';
 import 'package:chat/core/presentation/ui/screens/auth/login_screen.dart';
 import 'package:chat/core/presentation/ui/screens/auth/signup_screen.dart';
+import 'package:chat/core/presentation/ui/screens/chat_screen.dart';
 import 'package:chat/core/presentation/ui/screens/messages_screen.dart';
 import 'package:chat/core/presentation/ui/screens/navigation_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,5 +13,6 @@ class AppRoutes{
         '/signupScreen':(context) =>  SignupScreen(),
         '/messagesScreen':(context) =>  const MessagesScreen(),
         '/navigationScreen':(context) =>  const NavigationScreen(),
+        '/chatScreen':(context)=> const ChatScreen()
       };
 }
