@@ -1,4 +1,6 @@
 const double screenMainPadding = 25;
+const double navigationIconsPadding = 8; 
+
 
 const ktextSize1 = 15.0;
 
