@@ -1,8 +1,9 @@
+import 'package:chat/core/presentation/state/classes/record.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_record_wave_widget.dart';
 import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:record/record.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // ignore: must_be_immutable
 class ChatBox extends StatefulWidget {
@@ -21,6 +22,8 @@ class _ChatBoxState extends State<ChatBox> {
   final TextEditingController _controller = TextEditingController();
   bool messageEmpty = true;
   bool isRecording = false;
+  final Recorder _recorder = Recorder();
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,37 @@ class _ChatBoxState extends State<ChatBox> {
         }
       });
     });
+
+    _recorder.init();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+    _recorder.dispose();
+  }
+
+  void _record() async {
+    if (isRecording == false) {
+      final status = await Permission.microphone.request();
+
+      if (status == PermissionStatus.granted) {
+        setState(() {
+          isRecording = true;
+        });
+        await _recorder.startRecording();
+      } else if (status == PermissionStatus.permanentlyDenied) {
+        debugPrint('Permission permanently denied');
+      }
+    } else {
+      await _recorder.stopRecording();
+
+      setState(() {
+        isRecording = false;
+      });
+    }
   }
 
   @override
@@ -71,6 +105,7 @@ class _ChatBoxState extends State<ChatBox> {
           GestureDetector(
             onTap: () {
               widget.sendFunction(_controller.text);
+              _controller.clear();
             },
             child: CircleAvatar(
               backgroundColor: greenColors['secondaryGreen'],
@@ -82,27 +117,18 @@ class _ChatBoxState extends State<ChatBox> {
             ),
           )
         else
-           Row(
-            children:  [
+          Row(
+            children: [
               const ImageIcon(
                 AssetImage('$imagesPath/icons/camera.png'),
-                size: 40,
+                size: 30,
               ),
               GestureDetector(
-                onLongPressUp: () {
-                  
-                  setState(() {
-                    isRecording = false;
-                  });
-                },
-                onLongPress: (){
-                      setState(() {
-                        isRecording = true;
-                      });
-                },
+                onLongPressUp: _record,
+                onLongPress: _record,
                 child: const ImageIcon(
                   AssetImage('$imagesPath/icons/mic.png'),
-                  size: 40,
+                  size: 30,
                 ),
               )
             ],
