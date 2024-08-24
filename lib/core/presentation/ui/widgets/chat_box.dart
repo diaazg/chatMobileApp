@@ -1,3 +1,4 @@
+import 'package:chat/core/presentation/state/classes/get_it.dart';
 import 'package:chat/core/presentation/state/classes/record.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_record_wave_widget.dart';
 import 'package:chat/utils/colors.dart';
@@ -38,6 +39,8 @@ class _ChatBoxState extends State<ChatBox> {
     });
 
     _recorder.init();
+
+    
   }
 
   @override
@@ -119,9 +122,15 @@ class _ChatBoxState extends State<ChatBox> {
         else
           Row(
             children: [
-              const ImageIcon(
-                AssetImage('$imagesPath/icons/camera.png'),
-                size: 30,
+              GestureDetector(
+                onTap: (){
+                  requestStoragePermission();
+                  Navigator.pushNamed(context, '/cameraPreview');
+                },
+                child: const ImageIcon(
+                  AssetImage('$imagesPath/icons/camera.png'),
+                  size: 30,
+                ),
               ),
               GestureDetector(
                 onLongPressUp: _record,
