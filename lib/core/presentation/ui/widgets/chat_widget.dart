@@ -14,65 +14,70 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-         
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: PersonnalCirculairePic(screenSize: screenSize * 1.3),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/chatScreen');
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+           
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: PersonnalCirculairePic(screenSize: screenSize * 1.3),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: titleMedium.copyWith(
+                        fontSize: 20, color: Colors.black),
+                  ),
+                  Text(
+                    "How are you today?",
+                    style: titleRegular.copyWith(
+                        fontSize: ktextSize1 - 3,
+                        color: Colors.black54),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 5),
+            child: Column(
+              
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  name,
-                  style: titleMedium.copyWith(
-                      fontSize: 20, color: Colors.black),
-                ),
-                Text(
-                  "How are you today?",
+                  "2 min ago",
                   style: titleRegular.copyWith(
                       fontSize: ktextSize1 - 3,
                       color: Colors.black54),
                 ),
-              ],
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 5),
-          child: Column(
-            
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                "2 min ago",
-                style: titleRegular.copyWith(
-                    fontSize: ktextSize1 - 3,
-                    color: Colors.black54),
-              ),
-            
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: CircleAvatar(
-                
-                  radius: 12,
-                  backgroundColor: Colors.red,
-                  child: Center(
-                    child: Text(
-                      "5",
-                      style: titleBold.copyWith(fontSize: 10),
+              
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: CircleAvatar(
+                  
+                    radius: 12,
+                    backgroundColor: Colors.red,
+                    child: Center(
+                      child: Text(
+                        "5",
+                        style: titleBold.copyWith(fontSize: 10),
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-        )
-      ],
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

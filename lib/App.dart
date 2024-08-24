@@ -8,7 +8,7 @@ class ChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       
-      initialRoute: '/chatScreen',
+      initialRoute: '/navigationScreen',
       routes: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
       title: 'Chat App',

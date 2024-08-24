@@ -72,11 +72,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: ChatBox(
                   sendFunction: (String message) {
                     setState(() {
-                       mesages.add(MessageModel(
+                       mesages.add(
+                        MessageModel(
                         id: 'st',
                         isMe: true,
                         content: message,
-                        time: DateTime.now()));
+                        time: DateTime.now()
+                        )
+                      );
                     });
                   },
                 ),

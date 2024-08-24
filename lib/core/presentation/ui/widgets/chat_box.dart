@@ -3,14 +3,35 @@ import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class ChatBox extends StatelessWidget {
-   ChatBox({
-    super.key, required this.sendFunction,
+class ChatBox extends StatefulWidget {
+  const ChatBox({
+    super.key,
+    required this.sendFunction,
   });
 
-
   final Function(String message) sendFunction;
+
+  @override
+  State<ChatBox> createState() => _ChatBoxState();
+}
+
+class _ChatBoxState extends State<ChatBox> {
   final TextEditingController _controller = TextEditingController();
+  bool messageEmpty = true;
+  @override
+  void initState() {
+    
+    super.initState();
+    _controller.addListener(() {
+      setState(() {
+        if (_controller.text.isNotEmpty) {
+          messageEmpty = false;
+        } else {
+          messageEmpty = true;
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +50,8 @@ class ChatBox extends StatelessWidget {
           ),
           child: Center(
             child: TextFormField(
-              controller:_controller ,
-              
+              controller: _controller,
               decoration: const InputDecoration(
-                
                 contentPadding: EdgeInsets.all(10),
                 hintText: 'Write a message',
                 border: InputBorder.none,
@@ -44,24 +63,33 @@ class ChatBox extends StatelessWidget {
             ),
           ),
         ),
-        GestureDetector(
-          onTap: (){
-           
-            if(_controller.text.isNotEmpty){
-              
-              sendFunction(_controller.text);
-              
-            }
-          },
-          child: CircleAvatar(
-            backgroundColor: greenColors['secondaryGreen'],
-            radius: 40,
-            child: const Icon(
-              Icons.send,
-              color: Colors.white,
+        if (!messageEmpty)
+          GestureDetector(
+            onTap: () {
+              widget.sendFunction(_controller.text);
+            },
+            child: CircleAvatar(
+              backgroundColor: greenColors['secondaryGreen'],
+              radius: 40,
+              child: const Icon(
+                Icons.send,
+                color: Colors.white,
+              ),
             ),
-          ),
-        )
+          )
+        else
+          const Row(
+            children: [
+              ImageIcon(
+                AssetImage('$imagesPath/icons/camera.png'),
+                size: 40,
+              ),
+              ImageIcon(
+                AssetImage('$imagesPath/icons/mic.png'),
+                size: 40,
+              )
+            ],
+          )
       ],
     );
   }
