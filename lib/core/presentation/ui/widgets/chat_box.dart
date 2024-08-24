@@ -1,6 +1,8 @@
+import 'package:chat/core/presentation/ui/widgets/custom_record_wave_widget.dart';
 import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:record/record.dart';
 
 // ignore: must_be_immutable
 class ChatBox extends StatefulWidget {
@@ -18,9 +20,9 @@ class ChatBox extends StatefulWidget {
 class _ChatBoxState extends State<ChatBox> {
   final TextEditingController _controller = TextEditingController();
   bool messageEmpty = true;
+  bool isRecording = false;
   @override
   void initState() {
-    
     super.initState();
     _controller.addListener(() {
       setState(() {
@@ -49,18 +51,20 @@ class _ChatBoxState extends State<ChatBox> {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Center(
-            child: TextFormField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(10),
-                hintText: 'Write a message',
-                border: InputBorder.none,
-                suffixIcon: ImageIcon(
-                  AssetImage('$imagesPath/icons/files.png'),
-                  size: 40,
-                ),
-              ),
-            ),
+            child: isRecording
+                ? const CustomRecordingWaveWidget()
+                : TextFormField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      hintText: 'Write a message',
+                      border: InputBorder.none,
+                      suffixIcon: ImageIcon(
+                        AssetImage('$imagesPath/icons/files.png'),
+                        size: 40,
+                      ),
+                    ),
+                  ),
           ),
         ),
         if (!messageEmpty)
@@ -78,15 +82,28 @@ class _ChatBoxState extends State<ChatBox> {
             ),
           )
         else
-          const Row(
-            children: [
-              ImageIcon(
+           Row(
+            children:  [
+              const ImageIcon(
                 AssetImage('$imagesPath/icons/camera.png'),
                 size: 40,
               ),
-              ImageIcon(
-                AssetImage('$imagesPath/icons/mic.png'),
-                size: 40,
+              GestureDetector(
+                onLongPressUp: () {
+                  
+                  setState(() {
+                    isRecording = false;
+                  });
+                },
+                onLongPress: (){
+                      setState(() {
+                        isRecording = true;
+                      });
+                },
+                child: const ImageIcon(
+                  AssetImage('$imagesPath/icons/mic.png'),
+                  size: 40,
+                ),
               )
             ],
           )
