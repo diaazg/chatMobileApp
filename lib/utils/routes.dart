@@ -13,7 +13,7 @@ class AppRoutes {
     '/': (context) => const HomeScreen(),
     '/loginScreen': (context) => LoginScreen(),
     '/signupScreen': (context) => SignupScreen(),
-    '/messagesScreen': (context) => const MessagesScreen(),
+    '/messagesScreen': (context) =>  MessagesScreen(),
     '/navigationScreen': (context) => const NavigationScreen(),
     '/chatScreen': (context) => const ChatScreen(),
     '/imagePreview': (context) => const ImageViewPage(),

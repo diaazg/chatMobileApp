@@ -1,5 +1,5 @@
 import 'package:camera/camera.dart';
-import 'package:chat/core/presentation/state/bloc/camera_bloc.dart/camera_state.dart';
+import 'package:chat/core/presentation/state/bloc/camera/camera_state.dart';
 import 'package:chat/core/presentation/state/classes/camera.dart';
 import 'package:chat/core/presentation/state/classes/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

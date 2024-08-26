@@ -16,7 +16,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const MessagesScreen(),
+    MessagesScreen(),
     Container(color: Colors.red),
     Container(color: Colors.blue),
     Container(color: Colors.green),
