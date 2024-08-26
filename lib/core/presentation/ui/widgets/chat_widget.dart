@@ -16,7 +16,9 @@ class ChatWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/chatScreen');
+        Navigator.pushNamed(context, '/chatScreen',arguments: {
+          'userName':name,
+        });
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

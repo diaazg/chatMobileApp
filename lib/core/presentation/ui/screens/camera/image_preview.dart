@@ -3,17 +3,12 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-class ImageViewPage extends StatefulWidget {
+// ignore: must_be_immutable
+class ImageViewPage extends StatelessWidget {
  
-  const ImageViewPage({super.key});
+   ImageViewPage({super.key});
 
-  @override
-  State<ImageViewPage> createState() => _ImageViewPageState();
-}
-
-class _ImageViewPageState extends State<ImageViewPage> {
   bool isLoading = false;
-  
 
   @override
   Widget build(BuildContext context) {

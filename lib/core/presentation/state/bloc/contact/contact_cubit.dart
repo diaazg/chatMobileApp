@@ -4,7 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ContactCubit extends Cubit<ContactState> {
   ContactCubit() : super(ContactStateInit()){
     getContacts();
+    print('----------------------conatct open -----------------');
   }
+
+      @override
+  Future<void> close() {
+    print('--------------conatc closed-----------------');
+    return super.close();
+  }
+
 
   final List<String> _contacts = [];
 

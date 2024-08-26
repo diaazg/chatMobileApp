@@ -8,7 +8,10 @@ class ChatBoxCubit extends Cubit<ChatBoxState> {
   ChatBoxCubit() : super(ChatBoxStateInit()) {
     _controller.addListener(updateMessageState);
     _recorder.init();
+    print('-----------------------chat box init ---------------------');
   }
+
+
 
   final TextEditingController _controller = TextEditingController();
   final Recorder _recorder = Recorder();
@@ -58,6 +61,7 @@ class ChatBoxCubit extends Cubit<ChatBoxState> {
 
   @override
   Future<void> close() {
+        print('--------------chat box closed-----------------');
     _controller.dispose();
     _recorder.dispose();
     return super.close();
