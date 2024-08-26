@@ -14,11 +14,11 @@ class AppRoutes {
     '/': (context) => const HomeScreen(),
     '/loginScreen': (context) => LoginScreen(),
     '/signupScreen': (context) => SignupScreen(),
-    '/messagesScreen': (context) =>  MessagesScreen(),
+    '/messagesScreen': (context) =>  const MessagesScreen(),
     '/navigationScreen': (context) => const NavigationScreen(),
     '/chatScreen': (context) => const ChatScreen(),
     '/imagePreview': (context) => const ImageViewPage(),
     '/cameraPreview': (context) => const CameraPreviewScreen(),
-    '/contactScreen':(context)=> ContactsScreen()
+    '/contactScreen':(context)=> const ContactsScreen()
   };
 }

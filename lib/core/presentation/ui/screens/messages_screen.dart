@@ -14,9 +14,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // ignore: must_be_immutable
 class MessagesScreen extends StatelessWidget {
-  MessagesScreen({super.key});
+  const MessagesScreen({super.key});
 
-  List<double> zones = [.1, .12, .8];
+
 
   @override
   Widget build(BuildContext context) {
