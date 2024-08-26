@@ -54,6 +54,7 @@ class MessagesScreen extends StatelessWidget {
                   ),
                 ),
               ),
+             
               SizedBox(
                 height: (screenSize.height - screenMainPadding) * zones[1],
                 child: ListView.builder(
@@ -118,6 +119,7 @@ class MessagesScreen extends StatelessWidget {
                   );
                 },
               ),
+           
             ],
           );
         }),

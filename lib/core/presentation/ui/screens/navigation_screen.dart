@@ -1,3 +1,4 @@
+import 'package:chat/core/presentation/ui/screens/contact_screen.dart';
 import 'package:chat/core/presentation/ui/screens/messages_screen.dart';
 import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/constants.dart';
@@ -18,7 +19,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     MessagesScreen(),
     Container(color: Colors.red),
-    Container(color: Colors.blue),
+    ContactsScreen(),
     Container(color: Colors.green),
   ];
 
