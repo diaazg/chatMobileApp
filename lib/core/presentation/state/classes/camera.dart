@@ -24,4 +24,11 @@ class Camera {
     print("Error taking picture: $e");
   }
 }
+  
+
+  void dispose(){
+    cameraController.dispose();
+  }
+  
+
 }

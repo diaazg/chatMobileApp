@@ -17,6 +17,6 @@ class AppRoutes {
     '/navigationScreen': (context) => const NavigationScreen(),
     '/chatScreen': (context) => const ChatScreen(),
     '/imagePreview': (context) => const ImageViewPage(),
-    '/cameraPreview': (context) => CameraPreviewScreen()
+    '/cameraPreview': (context) => const CameraPreviewScreen()
   };
 }

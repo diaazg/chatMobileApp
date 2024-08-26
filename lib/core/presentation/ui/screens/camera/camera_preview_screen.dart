@@ -1,62 +1,40 @@
 import 'package:camera/camera.dart';
-import 'package:chat/core/presentation/state/classes/camera.dart';
-import 'package:chat/core/presentation/state/classes/get_it.dart';
+import 'package:chat/core/presentation/state/bloc/camera_bloc.dart/camera_cubit.dart';
+import 'package:chat/core/presentation/state/bloc/camera_bloc.dart/camera_state.dart';
 import 'package:chat/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CameraPreviewScreen extends StatefulWidget {
+class CameraPreviewScreen extends StatelessWidget {
   const CameraPreviewScreen({super.key});
-
-  @override
-  State<CameraPreviewScreen> createState() => _CameraPreviewScreenState();
-}
-
-class _CameraPreviewScreenState extends State<CameraPreviewScreen> {
-  final cameraObject = getIt<Camera>();
-  @override
-  void initState() {
-    cameraObject.init();
-    cameraObject.cameraController.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    }).catchError((Object e) {
-      if (e is CameraException) {
-        switch (e.code) {
-          case 'CameraAccessDenied':
-            // Handle access errors here.
-            break;
-          default:
-            // Handle other errors here.
-            break;
-        }
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-            // App bar configuration
-            ),
-        body: Stack(
+          body: BlocProvider(
+        create: (context) => CameraCubit(),
+        child: BlocBuilder<CameraCubit,CameraState>(
+          builder: (context,state){
+          final cubit = context.read<CameraCubit>();
+          return Stack(
           children: <Widget>[
-            CameraPreview(cameraObject.cameraController),
+            CameraPreview(
+                cubit.cameraObject.cameraController),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: FloatingActionButton(
                   onPressed: () {
-                    cameraObject.takePicture();
+                    cubit.cameraObject.takePicture();
                     Navigator.pushNamed(
                       context,
                       '/imagePreview',
-                      arguments: {'imageFile': cameraObject.imageFile},
+                      arguments: {
+                        'imageFile':
+                            cubit.cameraObject.imageFile
+                      },
                     );
                   },
                   backgroundColor: Colors.white,
@@ -66,8 +44,10 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen> {
               ),
             ),
           ],
-        ),
-      ),
+        );
+     
+        })
+      )),
     );
   }
 }
