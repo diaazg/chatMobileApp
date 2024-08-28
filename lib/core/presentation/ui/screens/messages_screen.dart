@@ -26,104 +26,101 @@ class MessagesScreen extends StatelessWidget {
         child: Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
-          child: BlocProvider(
-        create: (context) => MessagesCubit(),
-        child: BlocBuilder<MessagesCubit,MessagesState>(
-          builder: (context, state) {
-          final cubit = context.read<MessagesCubit>();
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: screenMainPadding,
-                    right: screenMainPadding,
-                    left: screenMainPadding),
-                child: SizedBox(
-                  height: (screenSize.height - screenMainPadding) * zones[0],
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const PlatfromIcon(icon: "search", borderWhite: true),
-                      Text(
-                        'Home',
-                        style: titleMedium.copyWith(fontSize: 30),
-                      ),
-                      PersonnalCirculairePic(screenSize: screenSize),
-                    ],
+          child: BlocBuilder<MessagesCubit,MessagesState>(
+            builder: (context, state) {
+            final cubit = BlocProvider.of<MessagesCubit>(context);
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: screenMainPadding,
+                      right: screenMainPadding,
+                      left: screenMainPadding),
+                  child: SizedBox(
+                    height: (screenSize.height - screenMainPadding) * zones[0],
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const PlatfromIcon(icon: "search", borderWhite: true),
+                        Text(
+                          cubit.tryTitle,
+                          style: titleMedium.copyWith(fontSize: 30),
+                        ),
+                        PersonnalCirculairePic(screenSize: screenSize),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-             
-              SizedBox(
-                height: (screenSize.height - screenMainPadding) * zones[1],
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: cubit.friendsStories,
-                    itemBuilder: (context, index) {
-                      return index == 0
-                          ? MyStoryCircle(
-                              height: (screenSize.height - screenMainPadding) *
-                                  zones[1])
-                          : StoryCircle(
-                              height: (screenSize.height - screenMainPadding) *
-                                  zones[1]);
-                    }),
-              ),
-              SizedBox(height: 30.0.responsiveHeight(screenSize.height)),
-              LayoutBuilder(
-                builder: (context, constraints) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: screenMainPadding - 5, vertical: 5),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(50))),
-                    constraints: BoxConstraints(
-                      minHeight:
-                          (screenSize.height - screenMainPadding) * zones[2],
-                    ),
-                    child: cubit.friendsMessages.isNotEmpty
-                        ? ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              final item = cubit.friendsMessages[index];
-                              return LimitedSwipeWidget(
-                                key: ValueKey(item), // Assigning unique Key
-                                swipeLimit: 200.0,
-                                onDelete: () {
-                                  cubit.deleteChat(index);
-                                },
-                                child: ChatWidget(
-                                  screenSize: screenSize,
-                                  name: item,
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                height: 10,
-                              );
-                            },
-                            itemCount: cubit.friendsMessages.length,
-                          )
-                        : Center(
-                            child: Text(
-                              "No chats",
-                              style: titleBold.copyWith(
-                                  fontSize: 50, color: Colors.black),
+               
+                SizedBox(
+                  height: (screenSize.height - screenMainPadding) * zones[1],
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: cubit.friendsStories,
+                      itemBuilder: (context, index) {
+                        return index == 0
+                            ? MyStoryCircle(
+                                height: (screenSize.height - screenMainPadding) *
+                                    zones[1])
+                            : StoryCircle(
+                                height: (screenSize.height - screenMainPadding) *
+                                    zones[1]);
+                      }),
+                ),
+                SizedBox(height: 30.0.responsiveHeight(screenSize.height)),
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: screenMainPadding - 5, vertical: 5),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(50))),
+                      constraints: BoxConstraints(
+                        minHeight:
+                            (screenSize.height - screenMainPadding) * zones[2],
+                      ),
+                      child: cubit.friendsMessages.isNotEmpty
+                          ? ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                final item = cubit.friendsMessages[index];
+                                return LimitedSwipeWidget(
+                                  key: ValueKey(item), // Assigning unique Key
+                                  swipeLimit: 200.0,
+                                  onDelete: () {
+                                    cubit.deleteChat(index);
+                                  },
+                                  child: ChatWidget(
+                                    screenSize: screenSize,
+                                    name: item,
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(
+                                  height: 10,
+                                );
+                              },
+                              itemCount: cubit.friendsMessages.length,
+                            )
+                          : Center(
+                              child: Text(
+                                "No chats",
+                                style: titleBold.copyWith(
+                                    fontSize: 50, color: Colors.black),
+                              ),
                             ),
-                          ),
-                  );
-                },
-              ),
-           
-            ],
-          );
-        }),
-      )),
+                    );
+                  },
+                ),
+             
+              ],
+            );
+          })),
     ));
   }
 }
