@@ -1,3 +1,4 @@
+import 'package:chat/core/presentation/state/bloc/box/box_cubit.dart';
 import 'package:chat/core/presentation/ui/widgets/buttons/sign_up_box.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_form_field.dart';
 import 'package:chat/core/presentation/ui/widgets/navigate_back.dart';
@@ -5,12 +6,17 @@ import 'package:chat/core/presentation/ui/widgets/text_widgets/aligned_colored_t
 import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
 import 'package:chat/utils/text_styles.dart';
+import 'package:chat/utils/validators.dart';
 import 'package:flutter/material.dart';
 
-class SignupScreen extends StatelessWidget {
-  SignupScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
   final List<double> zones = [.03, .7, .2];
   final _formkey = GlobalKey<FormState>();
+  final BoxCubit emailCubit = BoxCubit(emailValidator);
+  final BoxCubit passwordCubit = BoxCubit(passwordValidator);
+  final BoxCubit usernameCubit = BoxCubit(usernameValidator);
+  final BoxCubit confirmPasswordCubit = BoxCubit(passwordValidator);
 
   @override
   Widget build(BuildContext context) {
@@ -43,30 +49,34 @@ class SignupScreen extends StatelessWidget {
                         key: _formkey,
                         child: Column(
                           children: [
-                            const CustomFormFieldWidget(
+                            CustomFormFieldWidget(
                               title: 'name',
                               obscure: false,
+                              cubit: usernameCubit,
                             ),
                             SizedBox(
                                 height:
                                     25.0.responsiveHeight(screenSize.height)),
-                            const CustomFormFieldWidget(
+                            CustomFormFieldWidget(
                               title: 'email',
                               obscure: false,
+                              cubit: emailCubit,
                             ),
                             SizedBox(
                                 height:
                                     25.0.responsiveHeight(screenSize.height)),
-                            const CustomFormFieldWidget(
+                            CustomFormFieldWidget(
                               title: 'password',
                               obscure: true,
+                              cubit: passwordCubit,
                             ),
                             SizedBox(
                                 height:
                                     25.0.responsiveHeight(screenSize.height)),
-                            const CustomFormFieldWidget(
+                            CustomFormFieldWidget(
                               title: 'confirm password',
                               obscure: true,
+                              cubit: confirmPasswordCubit,
                             ),
                           ],
                         ))
@@ -75,13 +85,28 @@ class SignupScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: (screenSize.height - screenMainPadding) * zones[2],
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                        backColor: Color(0xFFF3F6F6),
-                        fontColor: Color(0xFF797C7B),
-                        title: 'Create an account'),
+                      backColor: const Color(0xFFF3F6F6),
+                      fontColor: const Color(0xFF797C7B),
+                      title: 'Create an account',
+                      onTap: () {
+                        usernameCubit.validate();
+                        emailCubit.validate();
+                        passwordCubit.validate();
+                        final password = passwordCubit.input;
+
+                        confirmPasswordCubit.check(password,'Passwords are not the same');
+                        Future.delayed(const Duration(milliseconds: 100),
+                            () async {
+                          if (_formkey.currentState!.validate()) {
+                            print('vallllllllllllllllllllllllllllllllllllllllllll');
+                          }
+                        });
+                      },
+                    ),
                   ],
                 ),
               )

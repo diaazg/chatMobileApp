@@ -1,3 +1,4 @@
+import 'package:chat/core/presentation/state/bloc/box/box_cubit.dart';
 import 'package:chat/core/presentation/ui/widgets/buttons/sign_up_box.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_divide_line.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_form_field.dart';
@@ -8,12 +9,15 @@ import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
 import 'package:chat/utils/text_styles.dart';
+import 'package:chat/utils/validators.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final _formkey = GlobalKey<FormState>();
   final List<double> zones = [.03, .6, .3];
+  final BoxCubit emailCubit = BoxCubit(emailValidator);
+  final BoxCubit passwordCubit = BoxCubit(passwordValidator);
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +66,22 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 40.0.responsiveHeight(screenSize.height)),
                     Form(
                         key: _formkey,
-                        child:  Column(
+                        child: Column(
                           children: [
-                            const CustomFormFieldWidget(
+                            CustomFormFieldWidget(
                               title: 'email',
                               obscure: false,
+                              cubit:emailCubit ,
+                              
                             ),
-                            SizedBox(height: 25.0.responsiveHeight(screenSize.height)),
-                            const CustomFormFieldWidget(
+                            SizedBox(
+                                height:
+                                    25.0.responsiveHeight(screenSize.height)),
+                            CustomFormFieldWidget(
                               title: 'password',
                               obscure: true,
+                              cubit: passwordCubit ,
+                              
                             ),
                           ],
                         )),
@@ -101,7 +111,6 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
               )
-           
             ],
           ),
         ),

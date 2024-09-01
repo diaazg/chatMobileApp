@@ -55,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
                  CustomButton(
                   onTap: (){
-                        Navigator.pushNamed(context, '/signupScreen');
+                        Navigator.pushNamed(context, '/auth/register');
                   },
                   title: 'Sign up withn mail',
                   backColor: Colors.white,
@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20.0.responsiveHeight(screenSize.height)),
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/loginScreen');
+                      Navigator.pushNamed(context, '/auth/login');
                     },
                     child: const LoginText())
               ],
