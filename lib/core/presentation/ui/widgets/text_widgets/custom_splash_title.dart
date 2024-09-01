@@ -1,6 +1,6 @@
-import 'package:chat/utils/extensions.dart';
-import 'package:chat/utils/strings.dart';
-import 'package:chat/utils/text_styles.dart';
+import 'package:chat/utils/other/extensions.dart';
+import 'package:chat/utils/other/strings.dart';
+import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class SplashText extends StatelessWidget {

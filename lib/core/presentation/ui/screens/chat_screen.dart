@@ -3,8 +3,8 @@ import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_box.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_screen_header.dart';
 import 'package:chat/core/presentation/ui/widgets/text_widgets/message_widget.dart';
-import 'package:chat/utils/extensions.dart';
-import 'package:chat/utils/sizes.dart';
+import 'package:chat/utils/other/extensions.dart';
+import 'package:chat/utils/other/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

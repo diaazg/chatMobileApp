@@ -3,10 +3,10 @@ import 'package:chat/core/presentation/ui/widgets/buttons/sign_up_box.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_form_field.dart';
 import 'package:chat/core/presentation/ui/widgets/navigate_back.dart';
 import 'package:chat/core/presentation/ui/widgets/text_widgets/aligned_colored_text.dart';
-import 'package:chat/utils/extensions.dart';
-import 'package:chat/utils/sizes.dart';
-import 'package:chat/utils/text_styles.dart';
-import 'package:chat/utils/validators.dart';
+import 'package:chat/utils/other/extensions.dart';
+import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/text_styles.dart';
+import 'package:chat/utils/other/validators.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -102,7 +102,7 @@ class RegisterScreen extends StatelessWidget {
                         Future.delayed(const Duration(milliseconds: 100),
                             () async {
                           if (_formkey.currentState!.validate()) {
-                            print('vallllllllllllllllllllllllllllllllllllllllllll');
+                            
                           }
                         });
                       },

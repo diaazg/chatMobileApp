@@ -1,8 +1,8 @@
 import 'package:chat/core/presentation/state/bloc/chat_box/chat_box_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/chat_box/chat_box_state.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_record_wave_widget.dart';
-import 'package:chat/utils/colors.dart';
-import 'package:chat/utils/constants.dart';
+import 'package:chat/utils/other/colors.dart';
+import 'package:chat/utils/other/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

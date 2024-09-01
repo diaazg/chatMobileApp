@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:chat/core/presentation/state/bloc/camera/camera_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/camera/camera_state.dart';
-import 'package:chat/utils/colors.dart';
+import 'package:chat/utils/other/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

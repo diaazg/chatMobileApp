@@ -6,9 +6,9 @@ import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circu
 import 'package:chat/core/presentation/ui/widgets/circular_image/story_circule.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_swip_widget.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
-import 'package:chat/utils/extensions.dart';
-import 'package:chat/utils/sizes.dart';
-import 'package:chat/utils/text_styles.dart';
+import 'package:chat/utils/other/extensions.dart';
+import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

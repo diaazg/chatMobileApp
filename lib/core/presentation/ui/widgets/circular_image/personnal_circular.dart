@@ -1,5 +1,5 @@
-import 'package:chat/utils/constants.dart';
-import 'package:chat/utils/extensions.dart';
+import 'package:chat/utils/other/constants.dart';
+import 'package:chat/utils/other/extensions.dart';
 import 'package:flutter/material.dart';
 
 class PersonnalCirculairePic extends StatelessWidget {

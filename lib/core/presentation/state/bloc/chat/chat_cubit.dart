@@ -1,5 +1,5 @@
 import 'package:chat/core/data/messages.dart';
-import 'package:chat/core/domain/models/message_model.dart';
+import 'package:chat/core/data/models/message_model.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

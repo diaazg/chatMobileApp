@@ -1,4 +1,4 @@
-import 'package:chat/utils/sizes.dart';
+import 'package:chat/utils/other/sizes.dart';
 
 extension StringExtension on String {
   String getWord(int wordNumber) {

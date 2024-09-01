@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:chat/utils/colors.dart';
+import 'package:chat/utils/other/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomRecordingWaveWidget extends StatefulWidget {

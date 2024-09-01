@@ -1,5 +1,5 @@
-import 'package:chat/utils/sizes.dart';
-import 'package:chat/utils/text_styles.dart';
+import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {

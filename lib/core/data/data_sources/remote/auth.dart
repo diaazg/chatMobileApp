@@ -16,7 +16,8 @@ class AuthRemote {
     return userData;
   }
 
-  Future<UserModel> register(String email, String username, String password) async {
+  Future<UserModel> register(
+      String email, String username, String password) async {
     dynamic data =
         UserModel(email: email, password: password, username: username)
             .toJsonRegister();
@@ -24,6 +25,10 @@ class AuthRemote {
     UserModel userData = UserModel.fromJson(response);
 
     return userData;
+  }
+
+  Future<void> checkToken(String token) async {
+    await apiService.get(endPoint: 'checkToken',token: token);
   }
 
 

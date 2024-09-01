@@ -1,8 +1,8 @@
 import 'package:chat/core/presentation/state/bloc/box/box_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/box/box_state.dart';
-import 'package:chat/utils/colors.dart';
-import 'package:chat/utils/sizes.dart';
-import 'package:chat/utils/text_styles.dart';
+import 'package:chat/utils/other/colors.dart';
+import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
