@@ -71,8 +71,7 @@ class LoginScreen extends StatelessWidget {
                             CustomFormFieldWidget(
                               title: 'email',
                               obscure: false,
-                              cubit:emailCubit ,
-                              
+                              cubit: emailCubit,
                             ),
                             SizedBox(
                                 height:
@@ -80,8 +79,7 @@ class LoginScreen extends StatelessWidget {
                             CustomFormFieldWidget(
                               title: 'password',
                               obscure: true,
-                              cubit: passwordCubit ,
-                              
+                              cubit: passwordCubit,
                             ),
                           ],
                         )),
@@ -94,9 +92,21 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomButton(
-                        backColor: greenColors['mainGreen']!,
-                        fontColor: Colors.white,
-                        title: 'Log in'),
+                      backColor: greenColors['mainGreen']!,
+                      fontColor: Colors.white,
+                      title: 'Log in',
+                      onTap: () {
+                        emailCubit.validate();
+                        passwordCubit.validate();
+
+                        Future.delayed(const Duration(milliseconds: 100),
+                            () async {
+                          if (_formkey.currentState!.validate()) {
+                            
+                          }
+                        });
+                      },
+                    ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: 10.0.responsiveHeight(screenSize.height),

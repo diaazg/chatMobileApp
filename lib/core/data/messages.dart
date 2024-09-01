@@ -1,4 +1,4 @@
-import 'package:chat/core/domain/models/message_model.dart';
+import 'package:chat/core/data/models/message_model.dart';
 import 'package:chat/utils/strings.dart';
 
 List<MessageModel> kmessages = [
