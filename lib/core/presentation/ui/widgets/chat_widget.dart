@@ -20,17 +20,13 @@ class ChatWidget extends StatelessWidget {
           'userName':name,
         });
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-           
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: PersonnalCirculairePic(screenSize: screenSize * 1.3),
-              ),
-              Column(
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        
+           leading:PersonnalCirculairePic(screenSize: screenSize * 1.3),
+            
+            
+             title:  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -46,9 +42,9 @@ class ChatWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
-          Padding(
+            
+          
+         trailing:  Padding(
             padding: const EdgeInsets.only(right: 5),
             child: Column(
               
@@ -78,7 +74,7 @@ class ChatWidget extends StatelessWidget {
               ],
             ),
           )
-        ],
+        
       ),
     );
   }

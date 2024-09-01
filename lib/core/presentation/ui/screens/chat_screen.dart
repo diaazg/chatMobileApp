@@ -1,6 +1,5 @@
 import 'package:chat/core/presentation/state/bloc/chat/chat_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
-import 'package:chat/core/presentation/state/bloc/messages/messages_cubit.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_box.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_screen_header.dart';
 import 'package:chat/core/presentation/ui/widgets/text_widgets/message_widget.dart';
@@ -16,7 +15,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final previousCubit = BlocProvider.of<MessagesCubit>(context);
+     
        final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     Size screenSize = MediaQuery.of(context).size;
@@ -56,7 +55,7 @@ class ChatScreen extends StatelessWidget {
                       child: ChatBox(
                         sendFunction: (String message) {
                           cubit.sendMessage(message);
-                          previousCubit.changeTitle(message);
+                          
                         },
                       ),
                     ),

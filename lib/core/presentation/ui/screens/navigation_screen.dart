@@ -1,5 +1,6 @@
 import 'package:chat/core/presentation/ui/screens/contact_screen.dart';
 import 'package:chat/core/presentation/ui/screens/messages_screen.dart';
+import 'package:chat/core/presentation/ui/screens/setting_screen.dart';
 import 'package:chat/utils/colors.dart';
 import 'package:chat/utils/constants.dart';
 import 'package:chat/utils/sizes.dart';
@@ -17,10 +18,10 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    MessagesScreen(),
+    const MessagesScreen(),
     Container(color: Colors.red),
-    ContactsScreen(),
-    Container(color: Colors.green),
+    const ContactsScreen(),
+    const SettingScreen(),
   ];
 
   void _onItemTapped(int index) {

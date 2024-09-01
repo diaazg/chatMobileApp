@@ -1,6 +1,6 @@
 import 'package:chat/core/presentation/state/bloc/contact/contact_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/contact/contact_state.dart';
-import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
+import 'package:chat/core/presentation/ui/widgets/contact_widget.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/extensions.dart';
 import 'package:chat/utils/sizes.dart';
@@ -82,17 +82,7 @@ class ContactsScreen extends StatelessWidget {
                                                   color: Colors.black)),
                                         ],
                                       ),
-                                      ...charContacts.map((contact) => ListTile(
-                                            leading: PersonnalCirculairePic(
-                                                screenSize: screenSize * 1.3),
-                                            title: Text(
-                                              contact,
-                                              style: titleMedium.copyWith(
-                                                  fontSize: ktextSize1,
-                                                  color: Colors.black),
-                                            ),
-                                            subtitle: const Text('0792007375'),
-                                          ))
+                                      ...charContacts.map((contact) => ContactWidget(screenSize: screenSize,contact: contact,))
                                     ],
                                   );
                                 }
@@ -116,5 +106,8 @@ class ContactsScreen extends StatelessWidget {
         ),
       ),
     ));
+ 
   }
 }
+
+
