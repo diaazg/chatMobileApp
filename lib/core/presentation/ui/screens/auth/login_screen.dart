@@ -10,6 +10,7 @@ import 'package:chat/core/presentation/ui/widgets/text_widgets/aligned_colored_t
 import 'package:chat/utils/other/colors.dart';
 import 'package:chat/utils/other/extensions.dart';
 import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/snacks.dart';
 import 'package:chat/utils/other/text_styles.dart';
 import 'package:chat/utils/other/validators.dart';
 import 'package:flutter/material.dart';
@@ -35,10 +36,9 @@ class LoginScreen extends StatelessWidget {
         body: BlocConsumer<LoginCubit, LoginState>(
           listener: (BuildContext context, Object? state) {
             if(state is LoginStateFailure){
-              print('Faaaaaaaaaa----------------------------');
-              print(state.error);
+                      showSnackBar(state.error, Colors.red,context);
             }else if(state is LoginStateSuccess){
-              print('Succccccccccccccccceeeeeeeeeeees------------------');
+              Navigator.pushNamed(context, '/navigationScreen');
             }
           },
           builder: (context, state) {
