@@ -19,8 +19,6 @@ class AuthRepoImp extends AuthRepoAbs {
   Future<Either<Failure, UserModel>> login(
       String username, String password) async {
     try {
-      print('lllllllllllllllllllllllllll');
-      print(username);
       UserModel userData = await authRemote.login(username, password);
       String token = userData.token!;
       await saveTokenToLocalStorage(token);
@@ -57,7 +55,9 @@ class AuthRepoImp extends AuthRepoAbs {
     try {
       await authRemote.checkToken(token);
       return true;
-    } catch (e) {
+    } 
+    catch (e) {
+      
       return false;
     }
   }

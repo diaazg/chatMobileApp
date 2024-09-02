@@ -1,8 +1,10 @@
+import 'package:chat/utils/api/end_points.dart';
 import 'package:dio/dio.dart';
 import '../error/error_handler.dart';
 
 class ApiService {
-  final _baseUrl = 'http://10.0.2.2:3000/basic/';
+  
+  final _baseUrl = 'http://$pcAdr:8000/basic/';
   final Dio _dio;
 
   ApiService(this._dio);
@@ -13,6 +15,7 @@ class ApiService {
     String? token,
   }) async {
     try {
+     
       final response = await _dio.get(
         '$_baseUrl$endPoint',
         queryParameters: queryParams,
@@ -39,13 +42,12 @@ class ApiService {
     String? token,
   }) async {
     try {
-      
+       
       final response = await _dio.post(
         '$_baseUrl$endPoint',
         data: data,
         options: Options(
-          contentType: Headers.jsonContentType, /// this slove the one day problem
-          /// space caratetr end encoded automaticaly and make sure in input to delete special caracts
+
           headers: token != null ? {'Authorization': 'Bearer $token'} : {},
         ),
       );
