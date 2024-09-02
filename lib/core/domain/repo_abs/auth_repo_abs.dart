@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 abstract class AuthRepoAbs {
   
   Future<bool> checkToken(String token);
-  Future<Either<Failure,UserModel>>login(String email,String password);
+  Future<Either<Failure,UserModel>>login(String username,String password);
   Future<Either<Failure,UserModel>>register(String username,String email,String password);
   void logOut();
   

@@ -17,9 +17,11 @@ class AuthRepoImp extends AuthRepoAbs {
 
   @override
   Future<Either<Failure, UserModel>> login(
-      String email, String password) async {
+      String username, String password) async {
     try {
-      UserModel userData = await authRemote.login(email, password);
+      print('lllllllllllllllllllllllllll');
+      print(username);
+      UserModel userData = await authRemote.login(username, password);
       String token = userData.token!;
       await saveTokenToLocalStorage(token);
 
