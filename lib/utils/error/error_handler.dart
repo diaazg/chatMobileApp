@@ -41,7 +41,13 @@ class Serverfailure extends Failure {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return Serverfailure(response.toString());
     } else if (statusCode == 404) {
-      return Serverfailure('Your request not found , please try later !');
+      String? msg = response.data['error'];
+      /// this will check error message
+      if(msg != null && msg.isNotEmpty){
+        return Serverfailure(msg);
+      }else{
+        return Serverfailure('Your request not found , please try later !');
+      }
     } else if (statusCode == 500) {
       return Serverfailure('Internal server error , please try later !');
     } else {

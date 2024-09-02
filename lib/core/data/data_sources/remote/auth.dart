@@ -8,11 +8,12 @@ class AuthRemote {
 
   Future<UserModel> login(String username, String password) async {
     dynamic data = UserModel(password: password,username:username ).toJsonLogin();
-    print(data);
+    
 
     var response = await apiService.post(endPoint: 'login', data: data);
 
     UserModel userData = UserModel.fromJson(response);
+    
 
     return userData;
   }

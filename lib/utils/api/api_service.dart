@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import '../error/error_handler.dart';
 
 class ApiService {
-  final _baseUrl = 'http://10.0.2.2:8000/basic/';
+  final _baseUrl = 'http://10.0.2.2:3000/basic/';
   final Dio _dio;
 
   ApiService(this._dio);
@@ -13,15 +13,12 @@ class ApiService {
     String? token,
   }) async {
     try {
-
       final response = await _dio.get(
         '$_baseUrl$endPoint',
         queryParameters: queryParams,
-         options: Options(
-        headers: {
-          'Authorization': 'Bearer $token', 
-        },
-      ),
+        options: Options(
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
       );
 
       if (response.statusCode == 200) {
@@ -39,21 +36,20 @@ class ApiService {
   Future<Map<String, dynamic>> post({
     required String endPoint,
     required Map<String, dynamic> data,
-     String? token,
+    String? token,
   }) async {
     try {
-            
       
       final response = await _dio.post(
         '$_baseUrl$endPoint',
         data: data,
         options: Options(
-        headers: {
-          'Authorization': 'Bearer $token', 
-        },
-      ),
+          contentType: Headers.jsonContentType, /// this slove the one day problem
+          /// space caratetr end encoded automaticaly and make sure in input to delete special caracts
+          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        ),
       );
-      
+
 
       if (response.statusCode == 200) {
         return response.data as Map<String, dynamic>;

@@ -129,9 +129,9 @@ class LoginScreen extends StatelessWidget {
                               Future.delayed(const Duration(milliseconds: 100),
                                   () async {
                                 if (_formkey.currentState!.validate()) {
-                                  String email = usernameCubit.input;
+                                  String username = usernameCubit.input;
                                   String password = passwordCubit.input;
-                                  cubit.login(email, password);
+                                  cubit.login(username, password);
                                 }
                               });
                             },
