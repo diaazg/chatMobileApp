@@ -12,13 +12,17 @@ class ApiService {
   Future<Map<String, dynamic>> get({
     required String endPoint,
     Map<String, dynamic>? queryParams,
+    Map<String, dynamic>? data,
     String? token,
+    
+
   }) async {
     try {
      
       final response = await _dio.get(
         '$_baseUrl$endPoint',
         queryParameters: queryParams,
+        data: data ?? {},
         options: Options(
           headers: token != null ? {'Authorization': 'Bearer $token'} : {},
         ),

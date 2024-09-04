@@ -1,6 +1,6 @@
 import 'package:chat/core/data/repo_imp/auth_repo_imp.dart';
 import 'package:chat/core/presentation/state/bloc/auth/login/login_state.dart';
-import 'package:chat/core/presentation/state/classes/get_it.dart';
+import 'package:chat/utils/classes/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginCubit extends Cubit<LoginState> {

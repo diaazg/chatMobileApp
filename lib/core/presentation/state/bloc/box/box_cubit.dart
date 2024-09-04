@@ -1,5 +1,5 @@
 import 'package:chat/core/presentation/state/bloc/box/box_state.dart';
-import 'package:chat/core/presentation/state/classes/validator_output.dart';
+import 'package:chat/utils/classes/validator_output.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

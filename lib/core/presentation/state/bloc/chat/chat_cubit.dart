@@ -1,26 +1,69 @@
-import 'package:chat/core/data/messages.dart';
+import 'package:chat/utils/socket/socket_class.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat/core/data/models/message_model.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:convert';
 
 class ChatCubit extends Cubit<ChatState> {
-  ChatCubit(this.userName) : super(ChatStateInit()) {
-    fetchMessages();
+  ChatCubit(this.userName, this.receiverName) : super(ChatStateInit()) {
+    emit(ChatStateLoading());
+    setSocket();
+    streamSocket.getResponse.listen((message) {
+      if (message == 'disconnect') {
+        print('ddddddddddddddddddddddddddddddddddddddddddddd');
+        emit(ChatStateCloseSocket());
+      } else {
+        messages.add(message);
+        emit(ChatStateNewMessage());
+      }
+    });
   }
 
   final String userName;
+  final String receiverName;
+  final StreamSocket streamSocket = StreamSocket();
+  late WebSocketChannel channel;
+  List<MessageModel> messages = [];
 
-  final List<MessageModel> mesages = [];
+  void setSocket() {
+    String roomName = getRoomName();
+    channel = WebSocketChannel.connect(
+      Uri.parse('ws://192.168.8.116:8000/ws/chat/$roomName/'),
+    );
 
-  void fetchMessages() {
-    List<MessageModel> fetchedMessages = kmessages;
-    mesages.addAll(fetchedMessages);
+    connectAndListen();
   }
 
-  void sendMessage(String message) {
-    mesages.add(MessageModel(
-        id: 'st', isMe: true, content: message, time: DateTime.now()));
+  String getRoomName() {
+    String roomName = '${userName}_$receiverName';
+    return roomName;
+  }
 
-    emit(ChatStateSent());    
+  void connectAndListen() {
+    channel.stream.listen((data) {
+      // Assuming the server sends JSON strings, parse the JSON and add it to the stream
+      var message = MessageModel.fromJson(jsonDecode(data));
+      streamSocket.addResponse(message);
+    }, onDone: () {
+      streamSocket.addResponse('disconnect');
+    }, onError: (error) {
+      print('Socket error: $error');
+      emit(ChatStateCloseSocket());
+    });
+  }
+
+  void sendMessage(Map<String, dynamic> message,{String action = 'send'}) {
+    message['action'] = action; // adding the action name
+    // Serialize the message as JSON before sending it
+    channel.sink.add(jsonEncode(message));
+  }
+
+  @override
+  Future<void> close() {
+    print('close');
+    channel.sink.close();
+    streamSocket.dispose();
+    return super.close();
   }
 }

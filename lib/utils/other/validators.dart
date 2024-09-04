@@ -1,4 +1,4 @@
-import 'package:chat/core/presentation/state/classes/validator_output.dart';
+import 'package:chat/utils/classes/validator_output.dart';
 
 ValidatorOutput emailValidator(String input) {
   final RegExp emailRegex =
