@@ -38,7 +38,7 @@ class ChatScreen extends StatelessWidget {
                   children: [
                     ChatScreenHeader(
                         screenSize: screenSize,
-                        userName: cubit.userName,
+                        userName: cubit.receiverName,
                         state: 'state'),
                     Expanded(
                         child: Container(
@@ -46,10 +46,13 @@ class ChatScreen extends StatelessWidget {
                       child: ListView.builder(
                           itemCount: cubit.messages.length,
                           itemBuilder: (context, index) {
+                            print('--_______________________');
+                            print(cubit.messages[index].sender);
+                             print('--_______________________333333');
                             return MessageWidget(
                               screenWidth: screenSize.width,
                               height: 50.0.responsiveHeight(screenSize.height),
-                              isMe: cubit.messages[index].sender == '5',
+                              isMe: cubit.messages[index].sender == 5,
                               content: cubit.messages[index].message,
                             );
                           }),
@@ -61,7 +64,7 @@ class ChatScreen extends StatelessWidget {
                         child: ChatBox(
                           sendFunction: (String message) {
                             Map<String, dynamic> messageModel = MessageModel(
-                                    sender: '5', receiver: '4', message: message)
+                                    sender: 5, receiver: 4, message: message)
                                 .toJson();
                             cubit.sendMessage(messageModel);
                           },
