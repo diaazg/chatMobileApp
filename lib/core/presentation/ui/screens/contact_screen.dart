@@ -1,3 +1,4 @@
+import 'package:chat/core/data/models/friend_model.dart';
 import 'package:chat/core/presentation/state/bloc/contact/contact_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/contact/contact_state.dart';
 import 'package:chat/core/presentation/ui/widgets/contact_widget.dart';
@@ -20,7 +21,7 @@ class ContactsScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (context) => ContactCubit(),
+          create: (context) => ContactCubit(4),
           child: BlocBuilder<ContactCubit, ContactState>(
               builder: (context, state) {
             final cubit = context.read<ContactCubit>();
@@ -66,8 +67,8 @@ class ContactsScreen extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                final List<String> charContacts = cubit.contacts
-                                    .where((element) => element
+                                final List<FriendModel> charContacts = cubit.contacts
+                                    .where((element) => element.friendName!
                                         .isStartWith(cubit.alphabet[index]))
                                     .toList();
 
@@ -82,7 +83,7 @@ class ContactsScreen extends StatelessWidget {
                                                   color: Colors.black)),
                                         ],
                                       ),
-                                      ...charContacts.map((contact) => ContactWidget(screenSize: screenSize,contact: contact,))
+                                      ...charContacts.map((contact) => ContactWidget(screenSize: screenSize,contact: contact.friendName!,))
                                     ],
                                   );
                                 }

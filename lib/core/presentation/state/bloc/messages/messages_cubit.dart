@@ -12,7 +12,6 @@ class MessagesCubit extends Cubit<MessagesState> {
 
   @override
   Future<void> close() {
-    print('--------------closed-----------------');
     return super.close();
   }
 

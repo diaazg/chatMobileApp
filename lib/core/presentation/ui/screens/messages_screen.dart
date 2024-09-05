@@ -106,7 +106,7 @@ class MessagesScreen extends StatelessWidget {
                                   },
                                   child: ChatWidget(
                                     screenSize: screenSize,
-                                    name: item.friend.toString(),
+                                    name: item.friendName!,
                                   ),
                                 );
                               },
