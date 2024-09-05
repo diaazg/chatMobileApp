@@ -24,55 +24,56 @@ class ChatScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(screenMainPadding - 10),
         child: BlocProvider(
-          create: (context) => ChatCubit( '5','4'),
+          create: (context) => ChatCubit(5, 4),
           child: BlocConsumer<ChatCubit, ChatState>(
-            listener: (BuildContext context, ChatState state) {
-              if (state is ChatStateCloseSocket) {
-                Navigator.pushNamed(context, '/navigationScreen');
-              }
-            },
+            listener: (BuildContext context, ChatState state) {},
             builder: (context, state) {
               final cubit = BlocProvider.of<ChatCubit>(context);
 
               return Column(
-                  children: [
-                    ChatScreenHeader(
-                        screenSize: screenSize,
-                        userName: cubit.receiverName,
-                        state: 'state'),
-                    Expanded(
-                        child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ListView.builder(
-                          itemCount: cubit.messages.length,
-                          itemBuilder: (context, index) {
-                            print('--_______________________');
-                            print(cubit.messages[index].sender);
-                             print('--_______________________333333');
-                            return MessageWidget(
-                              screenWidth: screenSize.width,
-                              height: 50.0.responsiveHeight(screenSize.height),
-                              isMe: cubit.messages[index].sender == 5,
-                              content: cubit.messages[index].message,
-                            );
-                          }),
-                    )),
-                    SizedBox(
-                      height: 60.0.responsiveHeight(screenSize.height),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: ChatBox(
-                          sendFunction: (String message) {
-                            Map<String, dynamic> messageModel = MessageModel(
-                                    sender: 5, receiver: 4, message: message)
-                                .toJson();
-                            cubit.sendMessage(messageModel);
-                          },
-                        ),
+                children: [
+                  ChatScreenHeader(
+                      screenSize: screenSize,
+                      userName: cubit.rid.toString(),
+                      state: 'state'),
+                  if (state is ChatStateLoading)
+                    const Expanded(child: Center(child: Text('wait...........')))
+                  else
+                    (state is ChatStateFailure)
+                        ? const Expanded(child: Center(child: Text('err')))
+                        : Expanded(
+                            child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            child: ListView.builder(
+                                itemCount: cubit.messages.length,
+                                itemBuilder: (context, index) {
+                                  return MessageWidget(
+                                    screenWidth: screenSize.width,
+                                    height: 50.0
+                                        .responsiveHeight(screenSize.height),
+                                    isMe: cubit.messages[index].sender == 5,
+                                    content: cubit.messages[index].message,
+                                  );
+                                }),
+                          )),
+                  SizedBox(
+                    height: 60.0.responsiveHeight(screenSize.height),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: ChatBox(
+                        sendFunction: (String message) {
+                          Map<String, dynamic> messageModel = MessageModel(
+                                  sender: 5, receiver: 4, message: message)
+                              .toJson();
+                        if (state is !ChatStateFailure){
+                          cubit.sendMessage(messageModel);
+                        }
+                        },
                       ),
-                    )
-                  ],
-                );
+                    ),
+                  )
+                ],
+              );
             },
           ),
         ),
