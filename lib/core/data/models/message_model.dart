@@ -1,6 +1,6 @@
 class MessageModel {
-  final int sender;
-  final int receiver;
+  final String sender;
+  final String receiver;
   final String message;
   final int? id;
   final DateTime? dateTime;
@@ -8,11 +8,11 @@ class MessageModel {
   MessageModel({required this.sender, required this.receiver, required this.message,this.id,this.dateTime});
 
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
-      sender: json['sender'] as int,
-      receiver: json['receiver'] as int,
+      sender: json['sender'] as String,
+      receiver: json['receiver'] as String,
       message: json['message'] as String,
-      id: json['id'] as int,
-      dateTime: DateTime.parse(json['dateTime']) ,
+      id: json['message_id'] as int,
+      dateTime: DateTime.parse(json['date_time']) ,
   );
 
   Map<String, dynamic> toJson() => {

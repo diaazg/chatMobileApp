@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:chat/core/data/models/message_model.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
 import 'dart:convert';
+import '../../../../../utils/api/end_points.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit(this.userName, this.receiverName) : super(ChatStateInit()) {
@@ -14,6 +15,7 @@ class ChatCubit extends Cubit<ChatState> {
         print('ddddddddddddddddddddddddddddddddddddddddddddd');
         emit(ChatStateCloseSocket());
       } else {
+        print(message);
         messages.add(message);
         emit(ChatStateNewMessage());
       }
@@ -29,7 +31,7 @@ class ChatCubit extends Cubit<ChatState> {
   void setSocket() {
     String roomName = getRoomName();
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://192.168.8.116:8000/ws/chat/$roomName/'),
+      Uri.parse('ws://$pcAdr:8000/ws/chat/$roomName/'),
     );
 
     connectAndListen();
@@ -44,6 +46,8 @@ class ChatCubit extends Cubit<ChatState> {
     channel.stream.listen((data) {
       // Assuming the server sends JSON strings, parse the JSON and add it to the stream
       var message = MessageModel.fromJson(jsonDecode(data));
+      print('----------------------------------------');
+      print(message);
       streamSocket.addResponse(message);
     }, onDone: () {
       streamSocket.addResponse('disconnect');

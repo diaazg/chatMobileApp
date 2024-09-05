@@ -24,7 +24,7 @@ class ChatScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(screenMainPadding - 10),
         child: BlocProvider(
-          create: (context) => ChatCubit('4', '5'),
+          create: (context) => ChatCubit( '5','4'),
           child: BlocConsumer<ChatCubit, ChatState>(
             listener: (BuildContext context, ChatState state) {
               if (state is ChatStateCloseSocket) {
@@ -49,7 +49,7 @@ class ChatScreen extends StatelessWidget {
                             return MessageWidget(
                               screenWidth: screenSize.width,
                               height: 50.0.responsiveHeight(screenSize.height),
-                              isMe: cubit.messages[index].sender == 4,
+                              isMe: cubit.messages[index].sender == '5',
                               content: cubit.messages[index].message,
                             );
                           }),
@@ -61,7 +61,7 @@ class ChatScreen extends StatelessWidget {
                         child: ChatBox(
                           sendFunction: (String message) {
                             Map<String, dynamic> messageModel = MessageModel(
-                                    sender: 4, receiver: 5, message: message)
+                                    sender: '5', receiver: '4', message: message)
                                 .toJson();
                             cubit.sendMessage(messageModel);
                           },
