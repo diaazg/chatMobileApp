@@ -36,3 +36,8 @@ extension DoubleExtension on double {
     return responsiveWidth;
   }
 }
+
+
+extension DateApiFormat on DateTime {
+  String formattedDate()=>'${toUtc().toIso8601String().split('.')[0]}Z';
+}

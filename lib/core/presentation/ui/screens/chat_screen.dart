@@ -45,6 +45,7 @@ class ChatScreen extends StatelessWidget {
                             child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             child: ListView.builder(
+                              controller: cubit.scrollController,
                                 itemCount: cubit.messages.length,
                                 itemBuilder: (context, index) {
                                   return MessageWidget(

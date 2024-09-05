@@ -9,3 +9,9 @@ class ChatStateFailure extends ChatState {}
 class ChatStateNewMessage extends ChatState {
 
 }
+
+class ChatStateLoadFailure extends ChatState {
+
+}
+
+class ChatStateLoadWait extends ChatState {}

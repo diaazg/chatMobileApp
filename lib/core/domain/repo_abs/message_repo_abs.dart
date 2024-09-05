@@ -7,5 +7,9 @@ abstract class MessageRepoAbs {
 
   Future<Either<Failure,List<MessageModel>>> getMessages(int sid,int rid);
 
+  Future<Either<Failure,List<MessageModel>>> getNewMessages(int sid,int rid,DateTime minDateTime);
+
+
+
 
 }

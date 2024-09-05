@@ -24,4 +24,20 @@ class MessagesRepoImp implements MessageRepoAbs {
       }
     }
   }
+  
+  @override
+  Future<Either<Failure, List<MessageModel>>> getNewMessages(int sid, int rid, DateTime minDateTime)async {
+    try {
+      
+      List<MessageModel> messages = await messageRemote.getNewMessages(sid, rid,minDateTime);
+     
+      return right(messages);
+    } catch (e) {
+      if (e is Serverfailure) {
+        return left(e);
+      } else {
+        return left(Serverfailure("Failed: ${e.toString()}"));
+      }
+    }
+  }
 }
