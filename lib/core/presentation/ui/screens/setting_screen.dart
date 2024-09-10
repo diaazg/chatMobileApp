@@ -1,3 +1,4 @@
+import 'package:chat/core/data/data_sources/local/shared_pref.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
 import 'package:chat/utils/other/colors.dart';
 import 'package:chat/utils/other/extensions.dart';
@@ -56,6 +57,7 @@ class SettingScreen extends StatelessWidget {
                         (screenSize.height - screenMainPadding) * zones[2],
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ListTile(
                         leading: PersonnalCirculairePic(
@@ -72,7 +74,25 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ),
                       const Divider(
-                          thickness: 2, height: 2, color: Color(0xAAF5F6F6))
+                          thickness: 2, height: 2, color: Color(0xAAF5F6F6)),
+                      GestureDetector(
+                        onTap: () async {
+                          await clearTokenFromLocalStorage();
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushNamed(context, '/');
+                        },
+                        child: ListTile(
+                          title: Text(
+                            'Log out',
+                            style: titleBold.copyWith(
+                                fontSize: ktextSize1 + 5, color: Colors.black),
+                          ),
+                           trailing: Icon(
+                          Icons.logout_outlined,
+                          color: greenColors['mainGreen'],
+                        ),
+                        ),
+                      )
                     ],
                   ),
                 );

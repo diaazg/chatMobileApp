@@ -13,7 +13,7 @@ class ApiService {
     required String endPoint,
     Map<String, dynamic>? queryParams,
     Map<String, dynamic>? data,
-    String? token,
+    Map<String, dynamic>? token,
     
 
   }) async {
@@ -24,7 +24,7 @@ class ApiService {
         queryParameters: queryParams,
         data: data ?? {},
         options: Options(
-          headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+          headers: token != null ? {'Authorization': 'Bearer ${token['access']}'} : {},
         ),
       );
 

@@ -26,7 +26,7 @@ class MessagesScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
           child: BlocProvider(
-        create: (context) => MessagesCubit('4'),
+        create: (context) => MessagesCubit(),
         child: BlocBuilder<MessagesCubit, MessagesState>(
             builder: (context, state) {
           final cubit = BlocProvider.of<MessagesCubit>(context);
