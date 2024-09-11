@@ -1,10 +1,13 @@
 import 'package:chat/core/data/data_sources/local/shared_pref.dart';
+import 'package:chat/core/presentation/state/bloc/auth/auth_cubit.dart';
+import 'package:chat/core/presentation/state/bloc/auth/auth_state.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
 import 'package:chat/utils/other/colors.dart';
 import 'package:chat/utils/other/extensions.dart';
 import 'package:chat/utils/other/sizes.dart';
 import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -59,19 +62,24 @@ class SettingScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ListTile(
-                        leading: PersonnalCirculairePic(
-                            screenSize: screenSize * 1.5),
-                        title: Text(
-                          'Diaa zellagui',
-                          style: titleBold.copyWith(
-                              fontSize: ktextSize1 + 5, color: Colors.black),
-                        ),
-                        subtitle: const Text('Never give up'),
-                        trailing: Icon(
-                          Icons.qr_code_scanner_sharp,
-                          color: greenColors['mainGreen'],
-                        ),
+                      BlocBuilder<AuthCubit,AuthState>(
+                        builder: (context,state) {
+                          final cubit = BlocProvider.of<AuthCubit>(context);
+                          return ListTile(
+                            leading: PersonnalCirculairePic(
+                                screenSize: screenSize * 1.5),
+                            title: Text(
+                              cubit.userModel.username??'',
+                              style: titleBold.copyWith(
+                                  fontSize: ktextSize1 + 5, color: Colors.black),
+                            ),
+                            subtitle:  Text(cubit.userModel.profileTitle??''),
+                            trailing: Icon(
+                              Icons.qr_code_scanner_sharp,
+                              color: greenColors['mainGreen'],
+                            ),
+                          );
+                        }
                       ),
                       const Divider(
                           thickness: 2, height: 2, color: Color(0xAAF5F6F6)),

@@ -1,5 +1,6 @@
 import 'package:chat/core/data/data_sources/local/shared_pref.dart';
 import 'package:chat/core/data/models/token_model.dart';
+import 'package:chat/core/data/models/user_model.dart';
 import 'package:chat/core/data/repo_imp/auth_repo_imp.dart';
 import 'package:chat/core/presentation/state/bloc/auth/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   final AuthRepoImp authRepoImp;
+  late UserModel userModel;
 
   void isAuthenticated() async {
     bool checkLocal = await checkLocalAuthStatus();
@@ -28,11 +30,13 @@ class AuthCubit extends Cubit<AuthState> {
           bool checked = await authRepoImp.checkToken(token);
 
           if (checked) {
+            userModel = await getUserInfoFromLocalStorage();
             emit(Authenticated());
           } else {
             emit(UnAuthenticated());
           }
         } else {
+          userModel = await getUserInfoFromLocalStorage();
           emit(Authenticated());
         }
       }

@@ -120,7 +120,7 @@ class RegisterScreen extends StatelessWidget {
                                 if (_formkey.currentState!.validate()) {
                                   String username = usernameCubit.input;
                                   String email = emailCubit.input;
-                                   cubit.register(email, username, password, '+21379267851', 'I never lose');
+                                   cubit.register(email, username, password, '+21356265871', 'Say cheese');
                                 }
                               });
                             },

@@ -9,13 +9,14 @@ class LoginCubit extends Cubit<LoginState> {
   final _authRepoImp = getIt<AuthRepoImp>();
 
   void login(String username, String password) async {
-    print(username);
+    
     emit(LoginStateLoading());
     var result = await _authRepoImp.login(username, password);
-
+ 
     result.fold((failure) {
       emit(LoginStateFailure(error: failure.errorMessage));
     }, (success) {
+
       emit(LoginStateSuccess(user: success));
     });
   }
