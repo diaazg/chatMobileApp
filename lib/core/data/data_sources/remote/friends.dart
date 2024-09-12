@@ -1,4 +1,5 @@
 import 'package:chat/core/data/models/friend_model.dart';
+import 'package:chat/core/data/models/invitation_model.dart';
 import 'package:chat/core/data/models/user_model.dart';
 import 'package:chat/utils/api/api_service.dart';
 
@@ -27,6 +28,32 @@ class FriendsRemote {
     List<UserModel> peoples = (peoplesResponse['list'] as List)
         .map((user) => UserModel.getPeoples(user))
         .toList();
-    return peoples;    
+    return peoples;
   }
+
+  Future<List<InvitationModel>> getInvitations(int uid) async {
+    Map<String, int> body = {"uid": uid};
+
+    var invitationsResponse =
+        await apiService.get(endPoint: 'invitation', data: body);
+
+    List<InvitationModel> invitations =
+        (invitationsResponse['invitations'] as List)
+            .map((invitation) => InvitationModel.fromJson(invitation))
+            .toList();
+
+    return invitations;
+  }
+
+  Future<void> sendInvittation(int uid,int rid)async{
+    
+    Map<String,int> body = {"sender_id":uid,"receiver_id":rid};
+     
+    await apiService.post(endPoint: 'invitation', data: body);    
+    
+    
+
+  }
+  
+
 }

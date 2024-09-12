@@ -52,8 +52,8 @@ def save_dart_model_to_file(model_name, model_content):
         file.write(model_content)
 
 
-model_name = "message"
-properties = ["sender", "receiver","message","id","dateTime"]
+model_name = "invitation"
+properties = ["sid","username","dateTime"]
 dart_model = generate_dart_model(model_name, properties)
 
 save_dart_model_to_file(model_name=model_name,model_content=dart_model)
