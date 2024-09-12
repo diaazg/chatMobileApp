@@ -21,7 +21,7 @@ class AuthRepoImp extends AuthRepoAbs {
       String username, String password) async {
     try {
       UserModel userData = await authRemote.login(username, password);
-     
+       
       await saveTokenToLocalStorage(userData);
 
       return right(userData);

@@ -83,6 +83,9 @@ class HomeScreen extends StatelessWidget {
               )),
         ));
       }else{
+        print('------------------------------------');
+        print('this is the state');
+        print(state.toString());
         return const NavigationScreen();
       }
     });

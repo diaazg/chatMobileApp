@@ -8,6 +8,7 @@ class UserModel {
   final String? phoneNbr;
   final String? profileTitle;
   final int? uid;
+  final bool? isFriend;
 
   UserModel({
     this.token,
@@ -17,6 +18,7 @@ class UserModel {
     this.phoneNbr,
     this.profileTitle,
     this.uid,
+    this.isFriend
   });
 
   set tokenSetter(TokenModel inputToken) {
@@ -31,6 +33,15 @@ class UserModel {
       phoneNbr: json['user_info']['phone_number'],
       profileTitle: json['user_info']['profile_title'],
       token: TokenModel.fromJson(json['token_obj']));
+  
+  factory UserModel.getPeoples(Map<String, dynamic> json)=>UserModel(
+     username: json['username'],
+     uid:json['uid'],
+     isFriend: false
+  );
+  
+
+
 
   Map<String, dynamic> toJsonLogin() => {
         'username': username,

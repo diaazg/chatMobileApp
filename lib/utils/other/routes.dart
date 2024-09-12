@@ -7,6 +7,7 @@ import 'package:chat/core/presentation/ui/screens/chat_screen.dart';
 import 'package:chat/core/presentation/ui/screens/contact_screen.dart';
 import 'package:chat/core/presentation/ui/screens/messages_screen.dart';
 import 'package:chat/core/presentation/ui/screens/navigation_screen.dart';
+import 'package:chat/core/presentation/ui/screens/search_people_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -19,6 +20,7 @@ class AppRoutes {
     '/cameraPreview': (context) => const CameraPreviewScreen(),
     '/contactScreen':(context)=> const ContactsScreen(),
     '/auth/login':(context) =>  LoginScreen(),
-    '/auth/register': (context) => RegisterScreen()
+    '/auth/register': (context) => RegisterScreen(),
+    '/searchPeople':(context)=>const SearchPeopleScreen()
   };
 }

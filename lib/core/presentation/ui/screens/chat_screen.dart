@@ -15,8 +15,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final Map<String, dynamic> args =
-    //ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(

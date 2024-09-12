@@ -44,12 +44,20 @@ Future<void> clearTokenFromLocalStorage() async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.remove('access_token');
   await prefs.remove('refresh_token');
+  await prefs.remove('uid');
+  await prefs.remove('username');
+  await prefs.remove('email');
+  await prefs.remove('phone_number');
+  await prefs.remove('profile_title');
+  
+
 }
 
 Future<bool> checkLocalAuthStatus() async {
   final prefs = await SharedPreferences.getInstance();
   bool access = prefs.containsKey('access_token');
   bool refresh = prefs.containsKey('refresh_token');
+
   bool result = access && refresh;
   return result;
 }

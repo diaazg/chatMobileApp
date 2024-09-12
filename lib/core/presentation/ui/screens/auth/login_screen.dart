@@ -1,3 +1,4 @@
+import 'package:chat/core/presentation/state/bloc/auth/auth_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/auth/login/login_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/auth/login/login_state.dart';
 import 'package:chat/core/presentation/state/bloc/box/box_cubit.dart';
@@ -38,7 +39,9 @@ class LoginScreen extends StatelessWidget {
             if(state is LoginStateFailure){
                       showSnackBar(state.error, Colors.red,context);
             }else if(state is LoginStateSuccess){
-              Navigator.pushNamed(context, '/navigationScreen');
+              final auth = context.read<AuthCubit>();
+              auth.isAuthenticated();
+              Navigator.pushNamed(context, '/');
             }
           },
           builder: (context, state) {

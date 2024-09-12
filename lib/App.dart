@@ -14,7 +14,7 @@ class ChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=>AuthCubit(authRepoImp))
+        BlocProvider<AuthCubit>(create: (context)=>AuthCubit(authRepoImp))
       ],
       child: MaterialApp(
         initialRoute: '/',

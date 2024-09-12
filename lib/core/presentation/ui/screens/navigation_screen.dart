@@ -15,13 +15,14 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+  
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
     const MessagesScreen(),
     Container(color: Colors.red),
     const ContactsScreen(),
-    const SettingScreen(),
+     SettingScreen(),
   ];
 
   void _onItemTapped(int index) {

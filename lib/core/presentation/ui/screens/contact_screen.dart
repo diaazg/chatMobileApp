@@ -38,7 +38,11 @@ class ContactsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const PlatfromIcon(icon: "search", borderWhite: true),
+                         PlatfromIcon(
+                          onTap: (){
+                              Navigator.pushNamed(context, '/searchPeople');
+                          },
+                          icon: "search", borderWhite: true),
                         Text(
                           'Contacts',
                           style: titleMedium.copyWith(fontSize: 30),

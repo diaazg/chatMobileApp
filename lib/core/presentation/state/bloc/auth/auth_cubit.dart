@@ -11,11 +11,15 @@ class AuthCubit extends Cubit<AuthState> {
     isAuthenticated();
   }
 
+
+
   final AuthRepoImp authRepoImp;
-  late UserModel userModel;
+ 
 
   void isAuthenticated() async {
+    emit(AuthStateLoading());
     bool checkLocal = await checkLocalAuthStatus();
+
     if (checkLocal == false) {
       emit(UnAuthenticated());
     } else {
@@ -30,18 +34,23 @@ class AuthCubit extends Cubit<AuthState> {
           bool checked = await authRepoImp.checkToken(token);
 
           if (checked) {
-            userModel = await getUserInfoFromLocalStorage();
-            emit(Authenticated());
+            UserModel userModel = await getUserInfoFromLocalStorage();
+            emit(Authenticated(
+              userModel: userModel
+            ));
           } else {
             emit(UnAuthenticated());
           }
         } else {
-          userModel = await getUserInfoFromLocalStorage();
-          emit(Authenticated());
+          UserModel userModel = await getUserInfoFromLocalStorage();
+            emit(Authenticated(
+              userModel: userModel
+            ));
         }
       }
     }
   }
 
+ 
 
 }

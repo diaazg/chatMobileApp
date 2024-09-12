@@ -14,6 +14,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -64,21 +65,24 @@ class SettingScreen extends StatelessWidget {
                     children: [
                       BlocBuilder<AuthCubit,AuthState>(
                         builder: (context,state) {
-                          final cubit = BlocProvider.of<AuthCubit>(context);
-                          return ListTile(
+                          if(state is Authenticated){
+                            return ListTile(
                             leading: PersonnalCirculairePic(
                                 screenSize: screenSize * 1.5),
                             title: Text(
-                              cubit.userModel.username??'',
+                              state.userModel.username??'',
                               style: titleBold.copyWith(
                                   fontSize: ktextSize1 + 5, color: Colors.black),
                             ),
-                            subtitle:  Text(cubit.userModel.profileTitle??''),
+                            subtitle:  Text(state.userModel.profileTitle??''),
                             trailing: Icon(
                               Icons.qr_code_scanner_sharp,
                               color: greenColors['mainGreen'],
                             ),
                           );
+                          }else{
+                            return const SizedBox.shrink();
+                          }
                         }
                       ),
                       const Divider(
@@ -86,6 +90,10 @@ class SettingScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           await clearTokenFromLocalStorage();
+                          
+                          // ignore: use_build_context_synchronously
+                          final auth = context.read<AuthCubit>();
+                          auth.isAuthenticated();
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, '/');
                         },
