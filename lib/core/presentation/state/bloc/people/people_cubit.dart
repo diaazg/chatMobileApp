@@ -6,35 +6,30 @@ import 'package:chat/utils/classes/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PeopleCubit extends Cubit<PeopleState> {
-  PeopleCubit():super(PeopleStateInit()){
+  PeopleCubit() : super(PeopleStateInit()) {
     getPeoples();
   }
 
-  
   final FriendsRepoImp _friendsRepoImp = getIt<FriendsRepoImp>();
   List<UserModel> peoples = [];
 
-  void getPeoples()async{
-   emit(PeopleStateLoading());
-   UserModel user = await getUserInfoFromLocalStorage();
-   int uid = user.uid!;
+  void getPeoples() async {
+    emit(PeopleStateLoading());
+    UserModel user = await getUserInfoFromLocalStorage();
+    int uid = user.uid!;
 
-   var response = await _friendsRepoImp.getPeoples(uid.toString());
-   response.fold(
-    (failure){
+    var response = await _friendsRepoImp.getPeoples(uid.toString());
+    response.fold((failure) {
       emit(PeopleStateFailure(err: failure.errorMessage));
-    },
-    (success){
+    }, (success) {
       peoples = success;
       emit(PeopleStateSuccess());
     });
-
-
-
-
   }
 
-  
-
+  void removeEelement(int rid){
+    peoples.removeWhere((item)=> item.uid == rid);
+    emit(PeopleStateSuccess());
+  }
 
 }

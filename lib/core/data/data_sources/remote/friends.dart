@@ -47,7 +47,7 @@ class FriendsRemote {
 
   Future<void> sendInvittation(int uid,int rid)async{
     
-    Map<String,int> body = {"sender_id":uid,"receiver_id":rid};
+    Map<String,int> body = {"sender":uid,"receiver":rid};
      
     await apiService.post(endPoint: 'invitation', data: body);    
     

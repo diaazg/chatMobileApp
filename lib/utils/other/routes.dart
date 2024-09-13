@@ -21,6 +21,6 @@ class AppRoutes {
     '/contactScreen':(context)=> const ContactsScreen(),
     '/auth/login':(context) =>  LoginScreen(),
     '/auth/register': (context) => RegisterScreen(),
-    '/searchPeople':(context)=>const SearchPeopleScreen()
+    '/searchPeople':(context)=>SearchPeopleScreen()
   };
 }

@@ -4,37 +4,29 @@ import 'package:chat/core/presentation/state/bloc/invitation/invitation_state.da
 import 'package:chat/utils/classes/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class InvitationCubit  extends Cubit<InvitationState> {
-  InvitationCubit():super(InvitationStateInit());
+class InvitationCubit extends Cubit<InvitationState> {
+  InvitationCubit() : super(InvitationStateInit());
 
   final List<InvitationModel> invitations = [];
   final FriendsRepoImp _friendsRepoImp = getIt<FriendsRepoImp>();
 
-  
-  void getInvitations(int uid , int rid)async{
+  void getInvitations(int uid, int rid) async {
     emit(InvitationStateLoading());
     var response = await _friendsRepoImp.getInvitations(uid);
-    response.fold((failure){
-        emit(InvitationStateGetFailure());
-    }, (success){
-       emit(InvitationStateGetSuccess());
+    response.fold((failure) {
+      emit(InvitationStateGetFailure());
+    }, (success) {
+      emit(InvitationStateGetSuccess());
     });
-
-  }
-  
-  void sendInvittation(int uid,int rid)async{
-    
-      emit(InvitationStateLoading());
-      var response = await _friendsRepoImp.sendInvittation(uid, rid);
-      response.fold((failure){
-        emit(InvitationStateSendSuccess());
-      }, (success){
-        emit(InvitationStateGetSuccess());
-      });
-
-   
   }
 
-
-
+  void sendInvittation(int uid, int rid) async {
+    emit(InvitationStateLoading());
+    var response = await _friendsRepoImp.sendInvittation(uid, rid);
+    response.fold((failure) {
+      emit(InvitationStateSendFailure());
+    }, (success) {
+      emit(InvitationStateSendSuccess(id: rid));
+    });
+  }
 }

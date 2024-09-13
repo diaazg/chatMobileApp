@@ -8,6 +8,12 @@ class InvitationStateGetSuccess extends InvitationState {}
 
 class InvitationStateGetFailure extends InvitationState {}
 
-class InvitationStateSendSuccess extends InvitationState {}
+class InvitationStateSendSuccess extends InvitationState {
+  final int id;
 
-class InvitationStateSendFailure extends InvitationState {}
+  InvitationStateSendSuccess({required this.id});
+}
+
+class InvitationStateSendFailure extends InvitationState {
+  
+}
