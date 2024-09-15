@@ -37,10 +37,12 @@ class FriendsRemote {
     var invitationsResponse =
         await apiService.get(endPoint: 'invitation', data: body);
 
+
     List<InvitationModel> invitations =
         (invitationsResponse['invitations'] as List)
             .map((invitation) => InvitationModel.fromJson(invitation))
             .toList();
+         
 
     return invitations;
   }

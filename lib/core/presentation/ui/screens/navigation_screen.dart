@@ -1,4 +1,5 @@
 import 'package:chat/core/presentation/ui/screens/contact_screen.dart';
+import 'package:chat/core/presentation/ui/screens/invitations_screen.dart';
 import 'package:chat/core/presentation/ui/screens/messages_screen.dart';
 import 'package:chat/core/presentation/ui/screens/setting_screen.dart';
 import 'package:chat/utils/other/colors.dart';
@@ -15,14 +16,13 @@ class NavigationScreen extends StatefulWidget {
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
-  
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
     const MessagesScreen(),
-    Container(color: Colors.red),
+     InvitationsScreen(),
     const ContactsScreen(),
-     SettingScreen(),
+    const SettingScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,7 +30,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       _selectedIndex = index;
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +66,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           BottomNavigationBarItem(
             icon: Padding(
               padding: EdgeInsets.symmetric(vertical: navigationIconsPadding),
-              child:ImageIcon(AssetImage('$imagesPath/icons/settings.png')),
+              child: ImageIcon(AssetImage('$imagesPath/icons/settings.png')),
             ),
             label: 'Settings',
           ),
