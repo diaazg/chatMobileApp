@@ -30,7 +30,9 @@ class ChatScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => ChatCubit(uid, fid),
           child: BlocConsumer<ChatCubit, ChatState>(
-            listener: (BuildContext context, ChatState state) {},
+            listener: (BuildContext context, ChatState state) {
+              
+            },
             builder: (context, state) {
               final cubit = BlocProvider.of<ChatCubit>(context);
 
@@ -58,7 +60,7 @@ class ChatScreen extends StatelessWidget {
                                     height: 50.0
                                         .responsiveHeight(screenSize.height),
                                     isMe: cubit.messages[index].sender == uid,
-                                    content: cubit.messages[index].message,
+                                    content: cubit.messages[index].textContent!,
                                   );
                                 }),
                           )),
@@ -69,10 +71,10 @@ class ChatScreen extends StatelessWidget {
                       child: ChatBox(
                         sendFunction: (String message) {
                           Map<String, dynamic> messageModel = MessageModel(
-                                  sender: uid, receiver: fid, message: message)
+                                  sender: uid, receiver: fid, textContent: message)
                               .toJson();
                           if (state is! ChatStateFailure) {
-                            cubit.sendMessage(messageModel);
+                            cubit.sendMessage(messageModel,'send');
                           }
                         },
                       ),

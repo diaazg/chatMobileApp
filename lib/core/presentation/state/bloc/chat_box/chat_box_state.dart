@@ -8,4 +8,8 @@ class ChatBoxStateRecordState extends ChatBoxState {}
 
 class ChatBoxStateStartRecord extends ChatBoxState {}
 
-class ChatBoxStateStopRecord extends ChatBoxState {}
+class ChatBoxStateStopRecord extends ChatBoxState {
+ final String? audioFile;
+
+  ChatBoxStateStopRecord({required this.audioFile});
+}

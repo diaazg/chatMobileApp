@@ -19,7 +19,14 @@ class ChatBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => ChatBoxCubit(),
-        child:BlocBuilder<ChatBoxCubit, ChatBoxState>(
+        child:BlocConsumer<ChatBoxCubit, ChatBoxState>(
+          listener: (context,state){
+            if (state is ChatBoxStateStopRecord){
+              print('----------------------------');
+              print(state.audioFile);
+              print('------------------------------');
+            }
+          },
         builder: (context, state) {
            final cubit = context.read<ChatBoxCubit>();
            return Row(
