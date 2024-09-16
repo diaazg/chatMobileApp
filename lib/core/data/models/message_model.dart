@@ -20,8 +20,8 @@ class MessageModel {
         type: json['type'] as String ,
         sender: json['sender'] as int,
         receiver: json['receiver'] as int,
-        audioFile: json['audio_file'] as String,
-        textContent: json['text_content'] as String ,
+        audioFile: json['audio_file'] ,
+        textContent: json['text_content'] ,
         id: json['message_id'] as int,
         dateTime: DateTime.parse(json['date_time']),
       );

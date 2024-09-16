@@ -60,7 +60,8 @@ class ChatCubit extends Cubit<ChatState> {
     var getMessages = await _messagesRepoImp.getMessages(uid, rid);
 
     getMessages.fold((failure) {
-      
+      print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+      print(failure.errorMessage);
       emit(ChatStateFailure());
     }, (success) {
       

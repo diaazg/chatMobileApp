@@ -4,6 +4,7 @@ import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_box.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_screen_header.dart';
 import 'package:chat/core/presentation/ui/widgets/text_widgets/message_widget.dart';
+import 'package:chat/core/presentation/ui/widgets/voice_widget.dart';
 import 'package:chat/utils/other/extensions.dart';
 import 'package:chat/utils/other/sizes.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +31,7 @@ class ChatScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => ChatCubit(uid, fid),
           child: BlocConsumer<ChatCubit, ChatState>(
-            listener: (BuildContext context, ChatState state) {
-              
-            },
+            listener: (BuildContext context, ChatState state) {},
             builder: (context, state) {
               final cubit = BlocProvider.of<ChatCubit>(context);
 
@@ -55,13 +54,27 @@ class ChatScreen extends StatelessWidget {
                                 controller: cubit.scrollController,
                                 itemCount: cubit.messages.length,
                                 itemBuilder: (context, index) {
-                                  return MessageWidget(
-                                    screenWidth: screenSize.width,
-                                    height: 50.0
-                                        .responsiveHeight(screenSize.height),
-                                    isMe: cubit.messages[index].sender == uid,
-                                    content: cubit.messages[index].textContent!,
-                                  );
+                                  
+                                  if (cubit.messages[index].type == "text") {
+                                    return MessageWidget(
+                                      screenWidth: screenSize.width,
+                                      height: 50.0
+                                          .responsiveHeight(screenSize.height),
+                                      isMe: cubit.messages[index].sender == uid,
+                                      content:
+                                          cubit.messages[index].textContent ??
+                                              cubit.messages[index].audioFile!,
+                                    );
+                                  } else {
+                                    return VoiceWidget(
+                                      audioName: cubit.messages[index].audioFile!,
+                                     isMe: cubit.messages[index].sender == uid,
+                                     screenWidth: screenSize.width,
+                                      height: 50.0
+                                          .responsiveHeight(screenSize.height),
+                                          );
+                                  }
+                                 
                                 }),
                           )),
                   SizedBox(
@@ -69,12 +82,18 @@ class ChatScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: ChatBox(
-                        sendFunction: (String message) {
+                        sendFunction: (String message, String type) {
                           Map<String, dynamic> messageModel = MessageModel(
-                                  sender: uid, receiver: fid, textContent: message)
+                                  sender: uid,
+                                  receiver: fid,
+                                  textContent: message)
                               .toJson();
                           if (state is! ChatStateFailure) {
-                            cubit.sendMessage(messageModel,'send');
+                            if (type == "text") {
+                              cubit.sendMessage(messageModel, 'send');
+                            } else {
+                              cubit.sendMessage(messageModel, 'audio');
+                            }
                           }
                         },
                       ),
@@ -89,3 +108,4 @@ class ChatScreen extends StatelessWidget {
     ));
   }
 }
+
