@@ -3,15 +3,14 @@ import 'package:chat/utils/classes/record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:convert'; // For base64 encoding
+import 'dart:io'; // For file handling
 
 class ChatBoxCubit extends Cubit<ChatBoxState> {
   ChatBoxCubit() : super(ChatBoxStateInit()) {
     _controller.addListener(updateMessageState);
     _recorder.init();
-    print('-----------------------chat box init ---------------------');
   }
-
-
 
   final TextEditingController _controller = TextEditingController();
   final Recorder _recorder = Recorder();
@@ -39,29 +38,31 @@ class ChatBoxCubit extends Cubit<ChatBoxState> {
         debugPrint('Permission permanently denied');
       }
     } else {
-      await _recorder.stopRecording();
+      String? path = await _recorder.stopRecording();
+      String base64Audio = '';
+      if (path != null) {
+        // Convert the recorded audio file to Base64
+        File audioFile = File(path);
+        List<int> audioBytes = await audioFile.readAsBytes();
+        base64Audio = base64Encode(audioBytes);
+      }
 
       _isRecording = false;
-      emit(ChatBoxStateStopRecord());
+      emit(ChatBoxStateStopRecord(audioFile: base64Audio));
     }
   }
-  
-  void clearInput(){
+
+  void clearInput() {
     _controller.clear();
     emit(ChatBoxStateInit());
   }
 
-
   bool get isRecording => _isRecording;
   bool get messageEmpty => _messageEmpty;
   TextEditingController get controller => _controller;
-  
-
-
 
   @override
   Future<void> close() {
-        print('--------------chat box closed-----------------');
     _controller.dispose();
     _recorder.dispose();
     return super.close();

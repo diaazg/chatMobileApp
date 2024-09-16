@@ -13,13 +13,21 @@ class ChatBox extends StatelessWidget {
     required this.sendFunction,
   });
 
-  final Function(String message) sendFunction;
+  final Function(String message,String type) sendFunction;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => ChatBoxCubit(),
-        child:BlocBuilder<ChatBoxCubit, ChatBoxState>(
+        child:BlocConsumer<ChatBoxCubit, ChatBoxState>(
+          listener: (context,state){
+            if (state is ChatBoxStateStopRecord){
+              print('----------------------------');
+              print(state.audioFile);
+              sendFunction(state.audioFile!,'audio');
+              print('------------------------------');
+            }
+          },
         builder: (context, state) {
            final cubit = context.read<ChatBoxCubit>();
            return Row(
@@ -55,7 +63,7 @@ class ChatBox extends StatelessWidget {
               if (!cubit.messageEmpty)
                 GestureDetector(
                   onTap: () {
-                    sendFunction(cubit.controller.text);
+                    sendFunction(cubit.controller.text,'text');
                     cubit.clearInput();
                   },
                   child: CircleAvatar(

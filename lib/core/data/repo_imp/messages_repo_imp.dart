@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:chat/core/data/data_sources/remote/messages.dart';
 import 'package:chat/core/data/models/message_model.dart';
 import 'package:chat/core/domain/repo_abs/message_repo_abs.dart';
@@ -40,4 +42,21 @@ class MessagesRepoImp implements MessageRepoAbs {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, Uint8List?>> getVoice(String audioName)async {
+     try {
+       Uint8List? voice = await messageRemote.getVoice(audioName);
+       return right(voice);
+     } catch (e) {
+      if (e is Serverfailure) {
+        return left(e);
+      } else {
+        return left(Serverfailure("Failed: ${e.toString()}"));
+      }
+     }
+  }
+
+  
+
 }

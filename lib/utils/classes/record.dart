@@ -35,13 +35,14 @@ class Recorder {
     }
   }
 
-  Future<void> stopRecording() async {
+  Future<String?> stopRecording() async {
     try {
-      String? path = await audioRecorder.stop();
-      debugPrint('=========>>>>>> PATH: $path <<<<<<===========');
+      
+      return await audioRecorder.stop();
     } catch (e) {
       debugPrint('ERROR WHILE STOP RECORDING: $e');
     }
+    return null;
   }
 
 }

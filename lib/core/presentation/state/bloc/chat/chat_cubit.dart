@@ -49,7 +49,7 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
-  void sendMessage(Map<String, dynamic> message, {String action = 'send'}) {
+  void sendMessage(Map<String, dynamic> message, String action) {
     message['action'] = action; // adding the action name
     // Serialize the message as JSON before sending it
     channel.sink.add(jsonEncode(message));
@@ -60,7 +60,8 @@ class ChatCubit extends Cubit<ChatState> {
     var getMessages = await _messagesRepoImp.getMessages(uid, rid);
 
     getMessages.fold((failure) {
-      
+      print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+      print(failure.errorMessage);
       emit(ChatStateFailure());
     }, (success) {
       
@@ -84,7 +85,7 @@ class ChatCubit extends Cubit<ChatState> {
     void _onScroll() {
     if (scrollController.position.pixels <= scrollController.position.minScrollExtent &&
         !scrollController.position.outOfRange) {
-          print('00000000000000000000000000000000000000');
+          
       _loadMoreMessages();
     }
   }
@@ -98,8 +99,7 @@ class ChatCubit extends Cubit<ChatState> {
      
      getMessages.fold(
       (failure){
-        print('ffffffffffffffffffffffff');
-        print(failure.errorMessage);
+
           emit(ChatStateLoadFailure());
       },
 
