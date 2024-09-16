@@ -57,7 +57,7 @@ class ChatScreen extends StatelessWidget {
                                     screenWidth: screenSize.width,
                                     height: 50.0
                                         .responsiveHeight(screenSize.height),
-                                    isMe: cubit.messages[index].sender == 5,
+                                    isMe: cubit.messages[index].sender == uid,
                                     content: cubit.messages[index].message,
                                   );
                                 }),
@@ -69,7 +69,7 @@ class ChatScreen extends StatelessWidget {
                       child: ChatBox(
                         sendFunction: (String message) {
                           Map<String, dynamic> messageModel = MessageModel(
-                                  sender: 5, receiver: 4, message: message)
+                                  sender: uid, receiver: fid, message: message)
                               .toJson();
                           if (state is! ChatStateFailure) {
                             cubit.sendMessage(messageModel);
