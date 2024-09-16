@@ -15,6 +15,11 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final int uid = args['uid'];
+    final int fid = args['fid'];
+    final String userName = args['userName'];
 
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
@@ -23,7 +28,7 @@ class ChatScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(screenMainPadding - 10),
         child: BlocProvider(
-          create: (context) => ChatCubit(5, 4),
+          create: (context) => ChatCubit(uid, fid),
           child: BlocConsumer<ChatCubit, ChatState>(
             listener: (BuildContext context, ChatState state) {},
             builder: (context, state) {
@@ -33,10 +38,11 @@ class ChatScreen extends StatelessWidget {
                 children: [
                   ChatScreenHeader(
                       screenSize: screenSize,
-                      userName: cubit.rid.toString(),
+                      userName: userName,
                       state: 'state'),
                   if (state is ChatStateLoading)
-                    const Expanded(child: Center(child: Text('wait...........')))
+                    const Expanded(
+                        child: Center(child: Text('wait...........')))
                   else
                     (state is ChatStateFailure)
                         ? const Expanded(child: Center(child: Text('err')))
@@ -44,7 +50,7 @@ class ChatScreen extends StatelessWidget {
                             child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 10),
                             child: ListView.builder(
-                              controller: cubit.scrollController,
+                                controller: cubit.scrollController,
                                 itemCount: cubit.messages.length,
                                 itemBuilder: (context, index) {
                                   return MessageWidget(
@@ -65,9 +71,9 @@ class ChatScreen extends StatelessWidget {
                           Map<String, dynamic> messageModel = MessageModel(
                                   sender: 5, receiver: 4, message: message)
                               .toJson();
-                        if (state is !ChatStateFailure){
-                          cubit.sendMessage(messageModel);
-                        }
+                          if (state is! ChatStateFailure) {
+                            cubit.sendMessage(messageModel);
+                          }
                         },
                       ),
                     ),

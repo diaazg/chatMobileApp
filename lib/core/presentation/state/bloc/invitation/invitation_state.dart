@@ -17,3 +17,11 @@ class InvitationStateSendSuccess extends InvitationState {
 class InvitationStateSendFailure extends InvitationState {
   
 }
+
+class InvitationAcceptSuccess extends InvitationState {}
+
+class InvitationAcceptFailure extends InvitationState {
+  final String error;
+
+  InvitationAcceptFailure({required this.error});
+}

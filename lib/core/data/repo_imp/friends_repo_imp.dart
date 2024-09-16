@@ -56,19 +56,31 @@ class FriendsRepoImp extends FriendRepoAbs {
   }
 
   @override
-  Future<Either<Failure, List<InvitationModel>>> getInvitations(int uid)async {
-   
-   try {
-     List<InvitationModel> invitations = await friendsRemote.getInvitations(uid);
-     return right(invitations);
-   } catch (e) {
-           if (e is Serverfailure) {
+  Future<Either<Failure, List<InvitationModel>>> getInvitations(int uid) async {
+    try {
+      List<InvitationModel> invitations =
+          await friendsRemote.getInvitations(uid);
+      return right(invitations);
+    } catch (e) {
+      if (e is Serverfailure) {
         return left(e);
       } else {
         return left(Serverfailure("Failed: ${e.toString()}"));
       }
-   }
+    }
+  }
 
-
+  @override
+  Future<Either<Failure, String>> acceptInvitation(int uid, int rid) async {
+    try {
+      await friendsRemote.acceptInvitation(uid, rid);
+      return right("success");
+    } catch (e) {
+      if (e is Serverfailure) {
+        return left(e);
+      } else {
+        return left(Serverfailure("Failed: ${e.toString()}"));
+      }
+    }
   }
 }

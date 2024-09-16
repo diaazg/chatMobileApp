@@ -11,6 +11,7 @@ abstract class FriendRepoAbs {
   Future<Either<Failure,List<UserModel>>> getPeoples(String uid);
   Future<Either<Failure,String>> sendInvittation(int uid,int rid);
   Future<Either<Failure,List<InvitationModel>>> getInvitations(int uid);
+  Future<Either<Failure,String>> acceptInvitation(int uid,int rid);
 
 
 }

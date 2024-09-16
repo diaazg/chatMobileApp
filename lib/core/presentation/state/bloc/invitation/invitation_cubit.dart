@@ -33,4 +33,15 @@ class InvitationCubit extends Cubit<InvitationState> {
       emit(InvitationStateSendSuccess(id: rid));
     });
   }
+
+  void acceptInvitation(int sid) async {
+    UserModel userModel = await getUserInfoFromLocalStorage();
+    var response = await _friendsRepoImp.acceptInvitation(userModel.uid!, sid);
+    response.fold((failure) {
+      emit(InvitationAcceptFailure(error: failure.errorMessage));
+    }, (success) {
+      invitations.removeWhere((element) => element.sid == sid);
+      emit(InvitationAcceptSuccess());
+    });
+  }
 }

@@ -11,6 +11,7 @@ class ChatWidget extends StatelessWidget {
     this.lastMessage = 'How are you today',
     this.messageTimeByMin = 2,
     this.numberOfLastMessages = 5,
+    this.onTap
   });
 
   final Size screenSize;
@@ -18,15 +19,12 @@ class ChatWidget extends StatelessWidget {
   final String lastMessage;
   final int messageTimeByMin;
   final int numberOfLastMessages;
+  final void Function()? onTap ;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, '/chatScreen', arguments: {
-          'userName': name,
-        });
-      },
+      onTap:onTap,
       child: ListTile(
           contentPadding: EdgeInsets.zero,
           leading: PersonnalCirculairePic(screenSize: screenSize * 1.3),

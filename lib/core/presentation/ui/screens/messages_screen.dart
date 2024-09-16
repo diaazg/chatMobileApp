@@ -1,4 +1,6 @@
+import 'package:chat/core/data/data_sources/local/shared_pref.dart';
 import 'package:chat/core/data/models/friend_model.dart';
+import 'package:chat/core/data/models/user_model.dart';
 import 'package:chat/core/presentation/state/bloc/messages/messages_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/messages/messages_state.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_widget.dart';
@@ -31,7 +33,7 @@ class MessagesScreen extends StatelessWidget {
             builder: (context, state) {
           final cubit = BlocProvider.of<MessagesCubit>(context);
           if (state is MessagesFailure) {
-            return  Center(
+            return Center(
                 child: Text(
               state.error,
               style: const TextStyle(color: Colors.white),
@@ -105,6 +107,17 @@ class MessagesScreen extends StatelessWidget {
                                     //cubit.deleteChat(index);
                                   },
                                   child: ChatWidget(
+                                    onTap: ()async {
+                                       UserModel userModel = await getUserInfoFromLocalStorage();
+                                      Navigator.pushNamed(
+                                          // ignore: use_build_context_synchronously
+                                          context, '/chatScreen',
+                                          arguments: {
+                                            'uid':userModel.uid,
+                                            'fid':item.friendID,
+                                            'userName': item.friendName!,
+                                          });
+                                    },
                                     screenSize: screenSize,
                                     name: item.friendName!,
                                   ),

@@ -21,7 +21,7 @@ class ContactsScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: BlocProvider(
-          create: (context) => ContactCubit(4),
+          create: (context) => ContactCubit(),
           child: BlocBuilder<ContactCubit, ContactState>(
               builder: (context, state) {
             final cubit = context.read<ContactCubit>();

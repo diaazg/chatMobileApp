@@ -2,6 +2,7 @@ import 'package:chat/core/presentation/state/bloc/invitation/invitation_cubit.da
 import 'package:chat/core/presentation/state/bloc/invitation/invitation_state.dart';
 import 'package:chat/utils/other/colors.dart';
 import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/snacks.dart';
 import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,10 +29,15 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
     return SafeArea(
       child: Scaffold(
       
-      body: BlocBuilder<InvitationCubit,InvitationState>(
+      body: BlocConsumer<InvitationCubit,InvitationState>(
         bloc:bloc ,
+        listener: (context, state) {
+          if (state is InvitationAcceptSuccess){
+            showSnackBar("Invitation accepted successfuly", Colors.green,context);
+          }
+        },
         builder: (context,state) {
-         if(state is InvitationStateGetSuccess){
+         if(state is InvitationStateGetSuccess || state is InvitationAcceptSuccess){
            if(bloc.invitations.isNotEmpty){
             return SizedBox(
             height: 700,
@@ -46,7 +52,7 @@ class _InvitationsScreenState extends State<InvitationsScreen> {
                         ),
                         trailing: GestureDetector(
                           onTap: () {
-                            
+                            bloc.acceptInvitation(bloc.invitations[index].sid);
                           },
                           child: Icon(
                             Icons.add_task_sharp,
