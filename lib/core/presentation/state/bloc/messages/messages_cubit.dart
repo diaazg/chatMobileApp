@@ -20,15 +20,14 @@ class MessagesCubit extends Cubit<MessagesState> {
     return super.close();
   }
 
-  final List<String> friendsMessages =
-      List<String>.generate(7, (i) => 'Item ${i + 1}');
+
 
   final int friendsStories = 8;
 
   /// I made it as int until I get data, then I will convert it into real list
 
   void deleteChat(int index) {
-    friendsMessages.removeAt(index);
+   
     emit(MessagesStateElementRemoved());
   }
 

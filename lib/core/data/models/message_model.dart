@@ -7,6 +7,7 @@ class MessageModel {
   final int? id;
   final DateTime? dateTime;
 
+
   MessageModel(
       {required this.sender,
       required this.receiver,
@@ -14,7 +15,9 @@ class MessageModel {
       this.textContent,
       this.id,
       this.dateTime,
-      this.type});
+      this.type,
+
+      });
 
   factory MessageModel.fromJson(Map<String, dynamic> json) => MessageModel(
         type: json['type'] as String ,
@@ -25,6 +28,10 @@ class MessageModel {
         id: json['message_id'] as int,
         dateTime: DateTime.parse(json['date_time']),
       );
+
+  
+  
+
 
   Map<String, dynamic> toJson() => {
         'sender_id': sender,

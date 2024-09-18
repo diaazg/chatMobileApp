@@ -41,6 +41,7 @@ class ChatCubit extends Cubit<ChatState> {
     channel.stream.listen((data) {
       // Assuming the server sends JSON strings, parse the JSON and add it to the stream
       var message = MessageModel.fromJson(jsonDecode(data));
+      print(message);
       streamSocket.addResponse(message);
     }, onDone: () {
       streamSocket.addResponse('disconnect');
