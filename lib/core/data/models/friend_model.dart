@@ -4,6 +4,7 @@ class FriendModel {
   final DateTime? acceptTime;
   final DateTime? lastConnection;
   final String? phoneNbr;
+  
 
   FriendModel(
       {this.friendName,
@@ -24,6 +25,8 @@ class FriendModel {
       phoneNbr: json['phone_nbr'] as String
       
       );
+
+      
 
   Map<String, dynamic> toJson() => {
         'friend': friendID,
