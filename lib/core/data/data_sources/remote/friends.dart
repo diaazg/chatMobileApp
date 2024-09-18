@@ -14,7 +14,7 @@ class FriendsRemote {
     var friendsResponse = await apiService.get(endPoint: 'friend', data: body);
 
     List<FriendModel> friends = (friendsResponse['list'] as List)
-        .map((friend) => FriendModel.fromJson(friend))
+        .map((friend) => FriendModel.fromJsonContact(friend))
         .toList();
 
     return friends;

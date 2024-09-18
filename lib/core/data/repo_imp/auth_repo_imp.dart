@@ -1,4 +1,4 @@
-import 'package:chat/core/data/data_sources/local/shared_pref.dart';
+import 'package:chat/core/data/data_sources/local/local_auth.dart';
 import 'package:chat/core/data/models/token_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:chat/core/data/models/user_model.dart';

@@ -38,11 +38,12 @@ class ContactsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         PlatfromIcon(
-                          onTap: (){
+                        PlatfromIcon(
+                            onTap: () {
                               Navigator.pushNamed(context, '/searchPeople');
-                          },
-                          icon: "search", borderWhite: true),
+                            },
+                            icon: "search",
+                            borderWhite: true),
                         Text(
                           'Contacts',
                           style: titleMedium.copyWith(fontSize: 30),
@@ -71,7 +72,8 @@ class ContactsScreen extends StatelessWidget {
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                final List<FriendModel> charContacts = cubit.contacts
+                                final List<FriendModel> charContacts = cubit
+                                    .contacts
                                     .where((element) => element.friendName!
                                         .isStartWith(cubit.alphabet[index]))
                                     .toList();
@@ -87,7 +89,12 @@ class ContactsScreen extends StatelessWidget {
                                                   color: Colors.black)),
                                         ],
                                       ),
-                                      ...charContacts.map((contact) => ContactWidget(screenSize: screenSize,contact: contact.friendName!,))
+                                      ...charContacts
+                                          .map((contact) => ContactWidget(
+                                            phoneNbr:contact.phoneNbr! ,
+                                                screenSize: screenSize,
+                                                contact: contact.friendName!,
+                                              ))
                                     ],
                                   );
                                 }
@@ -111,8 +118,5 @@ class ContactsScreen extends StatelessWidget {
         ),
       ),
     ));
- 
   }
 }
-
-

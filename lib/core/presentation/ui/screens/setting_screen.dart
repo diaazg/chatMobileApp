@@ -1,4 +1,4 @@
-import 'package:chat/core/data/data_sources/local/shared_pref.dart';
+import 'package:chat/core/data/data_sources/local/local_auth.dart';
 import 'package:chat/core/presentation/state/bloc/auth/auth_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/auth/auth_state.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
