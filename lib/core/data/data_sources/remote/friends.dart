@@ -12,7 +12,7 @@ class FriendsRemote {
     Map<String, dynamic> body = {"uid": uid, "friend": true};
 
     var friendsResponse = await apiService.get(endPoint: 'friend', data: body);
-
+    
     List<FriendModel> friends = (friendsResponse['list'] as List)
         .map((friend) => FriendModel.fromJsonContact(friend))
         .toList();
