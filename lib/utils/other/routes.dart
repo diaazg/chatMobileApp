@@ -8,19 +8,26 @@ import 'package:chat/core/presentation/ui/screens/contact_screen.dart';
 import 'package:chat/core/presentation/ui/screens/messages_screen.dart';
 import 'package:chat/core/presentation/ui/screens/navigation_screen.dart';
 import 'package:chat/core/presentation/ui/screens/search_people_screen.dart';
+import 'package:chat/core/presentation/ui/screens/video_call_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> routes = {
     '/': (context) => const HomeScreen(),
-    '/messagesScreen': (context) =>  const MessagesScreen(),
+    '/messagesScreen': (context) => const MessagesScreen(),
     '/navigationScreen': (context) => const NavigationScreen(),
     '/chatScreen': (context) => const ChatScreen(),
-    '/imagePreview': (context) =>  ImageViewPage(),
+    '/imagePreview': (context) => ImageViewPage(),
     '/cameraPreview': (context) => const CameraPreviewScreen(),
-    '/contactScreen':(context)=> const ContactsScreen(),
-    '/auth/login':(context) =>  LoginScreen(),
+    '/contactScreen': (context) => const ContactsScreen(),
+    '/auth/login': (context) => LoginScreen(),
     '/auth/register': (context) => RegisterScreen(),
-    '/searchPeople':(context)=>SearchPeopleScreen()
+    '/searchPeople': (context) => SearchPeopleScreen(),
+    '/video_call': (context) {
+      final args =
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+      return VideoCallScreen(
+          uid: args['uid'], roomID: args['roomID'], userName: args['userName']);
+    }
   };
 }

@@ -10,12 +10,13 @@ class ChatScreenHeader extends StatelessWidget {
     super.key,
     required this.screenSize,
     required this.userName,
-    required this.state,
+    required this.state, this.onTap,
   });
 
   final Size screenSize;
   final String userName;
   final String state;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +46,13 @@ class ChatScreenHeader extends StatelessWidget {
         
           ],
         ),
-        const Row(
+         Row(
           children: [
-            ImageIcon(AssetImage('$imagesPath/icons/CallChat.png')),
-            SizedBox(width: 20),
-            ImageIcon(AssetImage('$imagesPath/icons/Video.png'))
+            const ImageIcon(AssetImage('$imagesPath/icons/CallChat.png')),
+            const SizedBox(width: 20),
+            GestureDetector(
+              onTap: onTap,
+              child: const ImageIcon(AssetImage('$imagesPath/icons/Video.png')))
           ],
         )
       ],

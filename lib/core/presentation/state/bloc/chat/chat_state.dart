@@ -15,3 +15,9 @@ class ChatStateLoadFailure extends ChatState {
 }
 
 class ChatStateLoadWait extends ChatState {}
+
+class ChatStateVideoCall extends ChatState {
+   final String roomID;
+
+  ChatStateVideoCall({required this.roomID});
+}
