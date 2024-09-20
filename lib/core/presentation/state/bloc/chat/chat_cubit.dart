@@ -39,10 +39,19 @@ class ChatCubit extends Cubit<ChatState> {
 
   void connectAndListen() {
     channel.stream.listen((data) {
-      // Assuming the server sends JSON strings, parse the JSON and add it to the stream
-      var message = MessageModel.fromJson(jsonDecode(data));
-      print(message);
+      Map<String, dynamic> json = jsonDecode(data);
+      
+      if(json.keys.contains('action')){
+       
+       String roomName = json['room_name'];
+       emit(ChatStateVideoCall(roomID: roomName));
+
+      }else{
+      var message = MessageModel.fromJson(json);
+      
       streamSocket.addResponse(message);
+      }
+
     }, onDone: () {
       streamSocket.addResponse('disconnect');
     }, onError: (error) {
