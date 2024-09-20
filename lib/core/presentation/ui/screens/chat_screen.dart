@@ -1,4 +1,6 @@
+import 'package:chat/core/data/data_sources/local/local_auth.dart';
 import 'package:chat/core/data/models/message_model.dart';
+import 'package:chat/core/data/models/user_model.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_box.dart';
@@ -31,13 +33,30 @@ class ChatScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => ChatCubit(uid, fid),
           child: BlocConsumer<ChatCubit, ChatState>(
-            listener: (BuildContext context, ChatState state) {},
+            listener: (BuildContext context, ChatState state)async {
+              if(state is ChatStateVideoCall){
+                UserModel userModel = await getUserInfoFromLocalStorage();
+                Map<String,dynamic> args = {
+                  'uid':uid.toString(),
+                  'roomID':state.roomID,
+                  'userName':userModel.username
+                };
+                
+                Navigator.pushNamed(context, '/video_call',arguments:args );
+              }
+            },
             builder: (context, state) {
               final cubit = BlocProvider.of<ChatCubit>(context);
 
               return Column(
                 children: [
                   ChatScreenHeader(
+                    onTap: (){
+                     
+                     Map<String,dynamic> data = {};
+
+                     cubit.sendMessage(data, 'start_call');
+                    },
                       screenSize: screenSize,
                       userName: userName,
                       state: 'state'),
