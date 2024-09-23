@@ -86,7 +86,7 @@ pip install -r requirements.txt
 - **Video Calls**
 - **Story Sharing**
 - **Invitations and Friendships**
-- **Block Users**
+
 - **Authentication System**
 - **Track User Status** (Active, Inactive)
 

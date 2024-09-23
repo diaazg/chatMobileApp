@@ -12,7 +12,7 @@ class MessageRemote {
 
   MessageRemote({required this.apiService});
 
-  Future<List<MessageModel>> getMessages(int sid, int rid) async {
+  Future<Map<String,dynamic>> getMessages(int sid, int rid) async {
     Map<String, int> data = {'sender_id': sid, 'receiver_id': rid};
 
     var response = await apiService.get(endPoint: 'message', data: data);
@@ -21,7 +21,13 @@ class MessageRemote {
         .map((message) => MessageModel.fromJson(message))
         .toList();
 
-    return messages;
+    DateTime lastConnection = DateTime.parse(response['user_state']);   
+    
+
+    return {
+      'messages':messages,
+      'state':lastConnection
+    };
   }
 
   Future<List<MessageModel>> getNewMessages(

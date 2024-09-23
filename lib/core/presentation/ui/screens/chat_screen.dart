@@ -59,7 +59,7 @@ class ChatScreen extends StatelessWidget {
                     },
                       screenSize: screenSize,
                       userName: userName,
-                      state: 'state'),
+                      state: cubit.activeState),
                   if (state is ChatStateLoading)
                     const Expanded(
                         child: Center(child: Text('wait...........')))

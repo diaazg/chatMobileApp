@@ -17,6 +17,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   final int uid;
   final int rid;
+  String activeState = "Inactive";
   final ScrollController scrollController = ScrollController();
   final StreamSocket streamSocket = StreamSocket();
   final MessagesRepoImp _messagesRepoImp = getIt<MessagesRepoImp>();
@@ -37,21 +38,42 @@ class ChatCubit extends Cubit<ChatState> {
     return roomName;
   }
 
+  String updateState(DateTime lastConnection) {
+    Duration difference = DateTime.now().difference(lastConnection);
+
+    if (difference.inHours >= 1 && difference.inHours<23) {
+      return "Active ${difference.inHours} h ago";
+    } else if (difference.inHours > 23) {
+      return "Active before looong time";
+    } else if (difference.inMinutes < 5) {
+      return "Active";
+    } else {
+      return "Active ${difference.inMinutes} min ago";
+    }
+  }
+
+ 
+
   void connectAndListen() {
     channel.stream.listen((data) {
       Map<String, dynamic> json = jsonDecode(data);
-      
-      if(json.keys.contains('action')){
-       
-       String roomName = json['room_name'];
-       emit(ChatStateVideoCall(roomID: roomName));
 
-      }else{
-      var message = MessageModel.fromJson(json);
-      
-      streamSocket.addResponse(message);
+      if (json.keys.contains('action')) {
+        String roomName = json['room_name'];
+        emit(ChatStateVideoCall(roomID: roomName));
+      } else {
+        var message = MessageModel.fromJson(json);
+        if (json.containsKey('user_state')) {
+          int sid = message.sender ?? 0;
+
+          if (sid == rid) {
+            DateTime lastConnection = DateTime.parse(json['user_state']);
+            activeState = updateState(lastConnection);
+          }
+
+          streamSocket.addResponse(message);
+        }
       }
-
     }, onDone: () {
       streamSocket.addResponse('disconnect');
     }, onError: (error) {
@@ -66,17 +88,19 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void init() async {
-    
     var getMessages = await _messagesRepoImp.getMessages(uid, rid);
 
     getMessages.fold((failure) {
-      print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-      print(failure.errorMessage);
       emit(ChatStateFailure());
     }, (success) {
       
-      messages = success.reversed.toList();
+      List<MessageModel> successMessages =success['messages'].reversed.toList();
+      messages = successMessages;
+      
       scrollController.addListener(_onScroll);
+      DateTime lastConnection = success['state'];
+      activeState = updateState(lastConnection);
+
       emit(ChatStateNewMessage());
       setSocket();
       streamSocket.getResponse.listen((message) {
@@ -91,46 +115,30 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
-
-    void _onScroll() {
-    if (scrollController.position.pixels <= scrollController.position.minScrollExtent &&
+  void _onScroll() {
+    if (scrollController.position.pixels <=
+            scrollController.position.minScrollExtent &&
         !scrollController.position.outOfRange) {
-          
       _loadMoreMessages();
     }
   }
 
-  Future<void> _loadMoreMessages() async{
-  DateTime? minDateTime = messages.first.dateTime;  
-  if(minDateTime != null){
-    emit(ChatStateLoadWait());
-    
-    var getMessages = await _messagesRepoImp.getNewMessages(uid, rid,minDateTime);
-     
-     getMessages.fold(
-      (failure){
+  Future<void> _loadMoreMessages() async {
+    DateTime? minDateTime = messages.first.dateTime;
+    if (minDateTime != null) {
+      emit(ChatStateLoadWait());
 
-          emit(ChatStateLoadFailure());
-      },
+      var getMessages =
+          await _messagesRepoImp.getNewMessages(uid, rid, minDateTime);
 
-      (success){
-
+      getMessages.fold((failure) {
+        emit(ChatStateLoadFailure());
+      }, (success) {
         messages.insertAll(0, success.reversed.toList());
-         emit(ChatStateNewMessage());
-      }
-      
-      );
-
-
+        emit(ChatStateNewMessage());
+      });
+    }
   }
-   
-
-  }
-
-
-
-
-  
 
   @override
   Future<void> close() {

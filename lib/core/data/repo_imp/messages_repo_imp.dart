@@ -12,12 +12,14 @@ class MessagesRepoImp implements MessageRepoAbs {
   MessagesRepoImp({required this.messageRemote});
 
   @override
-  Future<Either<Failure, List<MessageModel>>> getMessages(
+  Future<Either<Failure, Map<String,dynamic>>> getMessages(
       int sid, int rid) async {
     try {
-      List<MessageModel> messages = await messageRemote.getMessages(sid, rid);
+      Map<String,dynamic> response = await messageRemote.getMessages(sid, rid);
+      
+      
 
-      return right(messages);
+      return right(response);
     } catch (e) {
       if (e is Serverfailure) {
         return left(e);

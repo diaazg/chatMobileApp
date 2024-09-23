@@ -64,5 +64,6 @@ class FriendsRemote {
     await apiService.put(endPoint: 'invitation', data: body);
 
   }
-
+  
+  
 }
