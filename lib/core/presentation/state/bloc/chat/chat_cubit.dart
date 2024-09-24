@@ -17,7 +17,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   final int uid;
   final int rid;
-  String activeState = "Inactive";
+  String activeState = "";
   final ScrollController scrollController = ScrollController();
   final StreamSocket streamSocket = StreamSocket();
   final MessagesRepoImp _messagesRepoImp = getIt<MessagesRepoImp>();
@@ -63,6 +63,7 @@ class ChatCubit extends Cubit<ChatState> {
         emit(ChatStateVideoCall(roomID: roomName));
       } else {
         var message = MessageModel.fromJson(json);
+        
         if (json.containsKey('user_state')) {
           int sid = message.sender ?? 0;
 
@@ -70,7 +71,7 @@ class ChatCubit extends Cubit<ChatState> {
             DateTime lastConnection = DateTime.parse(json['user_state']);
             activeState = updateState(lastConnection);
           }
-
+          
           streamSocket.addResponse(message);
         }
       }
@@ -109,6 +110,7 @@ class ChatCubit extends Cubit<ChatState> {
           emit(ChatStateFailure());
         } else {
           messages.add(message);
+          
           emit(ChatStateNewMessage());
         }
       });
