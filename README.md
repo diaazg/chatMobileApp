@@ -12,14 +12,14 @@ Before diving into the code, I highly recommend reviewing this README to underst
 To get started, clone this repository on your local machine:
 
 ```bash
-git clone https://github.com/your-repo/chat-app.git
-cd chat-app
+git clone https://github.com/diaazg/chatMobileApp
+cd chatMobileApp
 ```
 ### 2. **Launching the Flutter App**
 - Navigate to the Flutter app folder
 
 ```bash
-cd flutter_app
+cd chat
 ```
 
 - Install the necessary dependencies
@@ -42,7 +42,7 @@ flutter run
 - Navigate to the Django app folder
 
 ```bash
-cd django_app
+cd cbproject
 ```
 
 - Create a virtual environment (optional but recommended)
@@ -82,7 +82,7 @@ pip install -r requirements.txt
 ## Project Features
 
 - **Send Text Messages**
-- **Send Media Messages** (Voice, Images)
+- **Send Media Messages** (Voices, Images)
 - **Video Calls**
 - **Story Sharing**
 - **Invitations and Friendships**
