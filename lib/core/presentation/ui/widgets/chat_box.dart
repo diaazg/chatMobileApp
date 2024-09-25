@@ -1,3 +1,4 @@
+import 'package:chat/core/presentation/state/bloc/chat/chat_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/chat_box/chat_box_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/chat_box/chat_box_state.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_record_wave_widget.dart';
@@ -22,10 +23,9 @@ class ChatBox extends StatelessWidget {
         child:BlocConsumer<ChatBoxCubit, ChatBoxState>(
           listener: (context,state){
             if (state is ChatBoxStateStopRecord){
-              print('----------------------------');
-              print(state.audioFile);
+
               sendFunction(state.audioFile!,'audio');
-              print('------------------------------');
+              
             }
           },
         builder: (context, state) {
@@ -81,7 +81,13 @@ class ChatBox extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         requestStoragePermission();
-                        Navigator.pushNamed(context, '/cameraPreview');
+                        Navigator.pushNamed(
+                          context,
+                          '/cameraPreview',
+                          arguments: {
+                            'chatCubit': context.read<ChatCubit>()
+                          }
+                          );
                       },
                       child: const ImageIcon(
                         AssetImage('$imagesPath/icons/camera.png'),

@@ -17,8 +17,15 @@ class AppRoutes {
     '/messagesScreen': (context) => const MessagesScreen(),
     '/navigationScreen': (context) => const NavigationScreen(),
     '/chatScreen': (context) => const ChatScreen(),
-    '/imagePreview': (context) => ImageViewPage(),
-    '/cameraPreview': (context) => const CameraPreviewScreen(),
+    '/imagePreview': (context) {
+      final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+
+      return ImageViewPage(imageFile: args['imageFile']);
+    },
+    '/cameraPreview': (context) {
+      final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+      return  CameraPreviewScreen(chatCubit: args['chatCubit'],);
+    },
     '/contactScreen': (context) => const ContactsScreen(),
     '/auth/login': (context) => LoginScreen(),
     '/auth/register': (context) => RegisterScreen(),

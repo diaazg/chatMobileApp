@@ -3,6 +3,7 @@ class MessageModel {
   final int? sender;
   final int receiver;
   final String? audioFile;
+  final String? imageFile;
   final String? textContent;
   final int? id;
   final DateTime? dateTime;
@@ -12,6 +13,7 @@ class MessageModel {
       {required this.sender,
       required this.receiver,
       this.audioFile,
+      this.imageFile,
       this.textContent,
       this.id,
       this.dateTime,
@@ -23,7 +25,8 @@ class MessageModel {
         type: json['type'] as String ,
         sender: json['sender'] as int,
         receiver: json['receiver'] as int,
-        audioFile: json['audio_file'] ,
+        audioFile: json['audio_file'],
+        imageFile: json['image_file'],
         textContent: json['text_content'] ,
         id: json['message_id'] as int,
         dateTime: DateTime.parse(json['date_time']),

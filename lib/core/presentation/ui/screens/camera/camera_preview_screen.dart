@@ -1,12 +1,15 @@
 import 'package:camera/camera.dart';
 import 'package:chat/core/presentation/state/bloc/camera/camera_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/camera/camera_state.dart';
+import 'package:chat/core/presentation/state/bloc/chat/chat_cubit.dart';
 import 'package:chat/utils/other/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CameraPreviewScreen extends StatelessWidget {
-  const CameraPreviewScreen({super.key});
+  const CameraPreviewScreen({super.key,required this.chatCubit});
+  final ChatCubit chatCubit;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,8 @@ class CameraPreviewScreen extends StatelessWidget {
                       '/imagePreview',
                       arguments: {
                         'imageFile':
-                            cubit.cameraObject.imageFile
+                            cubit.cameraObject.imageFile,
+                         'chatCubit':chatCubit   
                       },
                     );
                   },

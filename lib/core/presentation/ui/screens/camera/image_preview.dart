@@ -1,29 +1,34 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ImageViewPage extends StatelessWidget {
- 
-   ImageViewPage({super.key});
+  ImageViewPage({super.key, required this.imageFile});
 
   bool isLoading = false;
+  final XFile imageFile;
 
   @override
   Widget build(BuildContext context) {
+ 
     
-    final Map<String, dynamic> args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    final XFile imageFile = args['imageFile'];
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Captured Image'),
       ),
-      body: Center(
-        child: Image.file(File(imageFile.path)),
+      body: Column(
+        children: [
+          Image.file(File(imageFile.path)),
+          TextButton(
+              onPressed: () {},
+              child: const Text(
+                "send",
+                style: TextStyle(
+                    color: Colors.red, fontSize: 15, fontFamily: "Poppins"),
+              ))
+        ],
       ),
     );
   }
