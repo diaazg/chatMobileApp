@@ -9,6 +9,7 @@ import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/other/constants.dart';
 import 'package:chat/utils/other/extensions.dart';
 import 'package:chat/utils/other/sizes.dart';
+import 'package:chat/utils/other/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/utils/other/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,12 +21,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     return BlocBuilder<AuthCubit, AuthState>(builder: (context, state) {
-      if(state is AuthStateLoading){
-        return const SafeArea(child: Scaffold(
-          backgroundColor: Colors.amber,
+      if (state is AuthStateLoading) {
+        return  SafeArea(
+            child: Scaffold(
+          body: Center(
+         child: Text('Wait...........',style: titleBold.copyWith(color: Colors.black),),
+          ),
         ));
-      }
-      else if (state is UnAuthenticated) {
+      } else if (state is UnAuthenticated) {
         return SafeArea(
             child: Scaffold(
           backgroundColor: Colors.white,
@@ -82,10 +85,8 @@ class HomeScreen extends StatelessWidget {
                 ),
               )),
         ));
-      }else{
-        print('------------------------------------');
-        print('this is the state');
-        print(state.toString());
+      } else {
+
         return const NavigationScreen();
       }
     });

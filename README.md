@@ -1,6 +1,6 @@
 # Chat App
 
-Welcome to the **Chat App** repository! This project is a fully featured chat application offering capabilities such as **text messaging**, **voice and picture sharing**, **video calls**, and even **story sharing**. If you're looking to build a comprehensive chat app with these features, you're in the right place!
+Welcome to the **Chat App** repository! This project is a fully featured chat application offering capabilities such as realtime **text messaging**, **voice and picture sharing**, **video calls**,**send invitations** and more. If you're looking to build a comprehensive chat app with these features, you're in the right place!
 
 Before diving into the code, I highly recommend reviewing this README to understand the app’s architecture. It will help you get familiar with the structure and make it easier to add your own custom features.
 
@@ -11,15 +11,21 @@ Before diving into the code, I highly recommend reviewing this README to underst
 
 To get started, clone this repository on your local machine:
 
+**Flutter App**
 ```bash
 git clone https://github.com/diaazg/chatMobileApp
-cd chatMobileApp
 ```
+
+**Django App**
+```bash
+git clone https://github.com/diaazg/CBV
+```
+
 ### 2. **Launching the Flutter App**
 - Navigate to the Flutter app folder
 
 ```bash
-cd chat
+cd chatMobileApp
 ```
 
 - Install the necessary dependencies
@@ -42,7 +48,7 @@ flutter run
 - Navigate to the Django app folder
 
 ```bash
-cd cbproject
+cd CBV
 ```
 
 - Create a virtual environment (optional but recommended)
@@ -73,7 +79,7 @@ pip install -r requirements.txt
 - Launch the Django development server
 
   ```bash 
-  python manage.py runserver
+  python manage.py runserver 0.0.0.0:8000
   ```
 
 
@@ -82,12 +88,15 @@ pip install -r requirements.txt
 ## Project Features
 
 - **Send Text Messages**
+
 - **Send Media Messages** (Voices, Images)
+
 - **Video Calls**
-- **Story Sharing**
+
 - **Invitations and Friendships**
 
 - **Authentication System**
+
 - **Track User Status** (Active, Inactive)
 
 ## Technologies Used

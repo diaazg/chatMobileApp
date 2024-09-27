@@ -9,7 +9,7 @@ class ChatWidget extends StatelessWidget {
     required this.screenSize,
     required this.name,
     this.lastMessage = 'How are you today',
-    this.messageTimeByMin = 2,
+    this.state = '',
     this.numberOfLastMessages = 5,
     this.onTap
   });
@@ -17,7 +17,7 @@ class ChatWidget extends StatelessWidget {
   final Size screenSize;
   final String name;
   final String lastMessage;
-  final int messageTimeByMin;
+  final String state;
   final int numberOfLastMessages;
   final void Function()? onTap ;
 
@@ -48,7 +48,7 @@ class ChatWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "$messageTimeByMin min ago",
+                  state,
                   style: titleRegular.copyWith(
                       fontSize: ktextSize1 - 3, color: Colors.black54),
                 ),

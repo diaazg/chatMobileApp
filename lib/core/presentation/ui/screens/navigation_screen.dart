@@ -52,9 +52,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
           BottomNavigationBarItem(
             icon: Padding(
               padding: EdgeInsets.symmetric(vertical: navigationIconsPadding),
-              child: ImageIcon(AssetImage('$imagesPath/icons/Call.png')),
+              child: Icon(Icons.person_add_alt_outlined),
             ),
-            label: 'Calls',
+            label: 'Invit',
           ),
           BottomNavigationBarItem(
             icon: Padding(

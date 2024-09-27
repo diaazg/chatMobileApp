@@ -4,9 +4,7 @@ import 'package:chat/core/data/models/user_model.dart';
 import 'package:chat/core/presentation/state/bloc/messages/messages_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/messages/messages_state.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_widget.dart';
-import 'package:chat/core/presentation/ui/widgets/circular_image/my_story_circle.dart';
 import 'package:chat/core/presentation/ui/widgets/circular_image/personnal_circular.dart';
-import 'package:chat/core/presentation/ui/widgets/circular_image/story_circule.dart';
 import 'package:chat/core/presentation/ui/widgets/custom_swip_widget.dart';
 import 'package:chat/core/presentation/ui/widgets/platform_icon.dart';
 import 'package:chat/utils/other/extensions.dart';
@@ -31,7 +29,6 @@ class MessagesScreen extends StatelessWidget {
         create: (context) => MessagesCubit(),
         child: BlocBuilder<MessagesCubit, MessagesState>(
             builder: (context, state) {
-          final cubit = BlocProvider.of<MessagesCubit>(context);
           if (state is MessagesFailure) {
             return Center(
                 child: Text(
@@ -63,23 +60,6 @@ class MessagesScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: (screenSize.height - screenMainPadding) * zones[1],
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: cubit.friendsStories,
-                      itemBuilder: (context, index) {
-                        return index == 0
-                            ? MyStoryCircle(
-                                height:
-                                    (screenSize.height - screenMainPadding) *
-                                        zones[1])
-                            : StoryCircle(
-                                height:
-                                    (screenSize.height - screenMainPadding) *
-                                        zones[1]);
-                      }),
-                ),
                 SizedBox(height: 30.0.responsiveHeight(screenSize.height)),
                 LayoutBuilder(
                   builder: (context, constraints) {
@@ -107,19 +87,22 @@ class MessagesScreen extends StatelessWidget {
                                     //cubit.deleteChat(index);
                                   },
                                   child: ChatWidget(
-                                    onTap: ()async {
-                                       UserModel userModel = await getUserInfoFromLocalStorage();
+                                    onTap: () async {
+                                      UserModel userModel =
+                                          await getUserInfoFromLocalStorage();
                                       Navigator.pushNamed(
                                           // ignore: use_build_context_synchronously
-                                          context, '/chatScreen',
+                                          context,
+                                          '/chatScreen',
                                           arguments: {
-                                            'uid':userModel.uid,
-                                            'fid':item.friendID,
+                                            'uid': userModel.uid,
+                                            'fid': item.friendID,
                                             'userName': item.friendName!,
                                           });
                                     },
                                     screenSize: screenSize,
                                     name: item.friendName!,
+                                    state: item.state!,
                                   ),
                                 );
                               },
@@ -143,10 +126,10 @@ class MessagesScreen extends StatelessWidget {
               ],
             );
           } else {
-            return const Center(
+            return Center(
                 child: Text(
               'Wait....................',
-              style: TextStyle(color: Colors.white),
+              style: titleBold.copyWith(fontSize: 50),
             ));
           }
         }),
