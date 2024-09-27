@@ -159,6 +159,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   @override
   Future<void> close() {
+    scrollController.removeListener(_onScroll); 
     scrollController.dispose();
     channel.sink.close();
     streamSocket.dispose();

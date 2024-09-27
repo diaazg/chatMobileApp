@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CameraCubit extends Cubit<CameraState> {
   CameraCubit() : super(CameraStateInit()) {
+    
     initialize();
   }
 
@@ -29,8 +30,8 @@ class CameraCubit extends Cubit<CameraState> {
     }
   }
   
-  void takePicture(){
-    cameraObject.takePicture();
+  Future<void> takePicture()async{
+    await cameraObject.takePicture();
   }
 
   @override

@@ -29,8 +29,8 @@ class CameraPreviewScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: FloatingActionButton(
-                  onPressed: () {
-                    cubit.cameraObject.takePicture();
+                  onPressed: () async{
+                    await cubit.takePicture();
                     Navigator.pushNamed(
                       context,
                       '/imagePreview',

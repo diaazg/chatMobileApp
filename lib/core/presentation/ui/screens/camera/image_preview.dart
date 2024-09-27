@@ -12,37 +12,56 @@ class ImageViewPage extends StatelessWidget {
   final XFile imageFile;
   final ChatCubit chatCubit;
 
+  Future<bool> _deleteImage() async {
+    try {
+      final file = File(imageFile.path);
+      if (await file.exists()) {
+        await file.delete(); 
+      }
+      return true; 
+    } catch (e) {
+
+      return true; 
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
- 
-    
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Captured Image'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.file(File(imageFile.path)),
-          GestureDetector(
-            
+    return WillPopScope(
+      onWillPop: _deleteImage, 
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Captured Image'),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.file(File(imageFile.path)),
+            GestureDetector(
               onTap: () {
                 chatCubit.sendImage(imageFile);
+                for (int i=0;i<=1;i++){
+                    Navigator.pop(context);
+                }
+                
               },
               child: Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: greenColors['mainGreen']
-                ),
+                    borderRadius: BorderRadius.circular(10),
+                    color: greenColors['mainGreen']),
                 child: const Text(
                   "send",
                   style: TextStyle(
-                      color: Colors.white, fontSize: 25, fontFamily: "Poppins",fontWeight: FontWeight.w500),
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.w500),
                 ),
-              ))
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
