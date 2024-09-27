@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:chat/core/data/repo_imp/messages_repo_imp.dart';
 import 'package:chat/utils/classes/get_it.dart';
 import 'package:chat/utils/socket/socket_class.dart';
@@ -41,7 +42,7 @@ class ChatCubit extends Cubit<ChatState> {
   String updateState(DateTime lastConnection) {
     Duration difference = DateTime.now().difference(lastConnection);
 
-    if (difference.inHours >= 1 && difference.inHours<23) {
+    if (difference.inHours >= 1 && difference.inHours < 23) {
       return "Active ${difference.inHours} h ago";
     } else if (difference.inHours > 23) {
       return "Active before looong time";
@@ -52,8 +53,6 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
- 
-
   void connectAndListen() {
     channel.stream.listen((data) {
       Map<String, dynamic> json = jsonDecode(data);
@@ -63,7 +62,7 @@ class ChatCubit extends Cubit<ChatState> {
         emit(ChatStateVideoCall(roomID: roomName));
       } else {
         var message = MessageModel.fromJson(json);
-        
+
         if (json.containsKey('user_state')) {
           int sid = message.sender ?? 0;
 
@@ -71,7 +70,7 @@ class ChatCubit extends Cubit<ChatState> {
             DateTime lastConnection = DateTime.parse(json['user_state']);
             activeState = updateState(lastConnection);
           }
-          
+
           streamSocket.addResponse(message);
         }
       }
@@ -88,16 +87,32 @@ class ChatCubit extends Cubit<ChatState> {
     channel.sink.add(jsonEncode(message));
   }
 
+  void sendImage(XFile imageFile) async {
+
+    String base64Image = '';
+    List<int> audioBytes = await imageFile.readAsBytes();
+    base64Image = base64Encode(audioBytes);
+
+    if (base64Image.isNotEmpty) {
+      Map<String, dynamic> message =
+          MessageModel(sender: uid, receiver: rid, textContent: base64Image)
+              .toJson();
+      message['action'] = 'image';
+      channel.sink.add(jsonEncode(message));
+    }
+    
+  }
+
   void init() async {
     var getMessages = await _messagesRepoImp.getMessages(uid, rid);
 
     getMessages.fold((failure) {
       emit(ChatStateFailure());
     }, (success) {
-      
-      List<MessageModel> successMessages =success['messages'].reversed.toList();
+      List<MessageModel> successMessages =
+          success['messages'].reversed.toList();
       messages = successMessages;
-      
+
       scrollController.addListener(_onScroll);
       DateTime lastConnection = success['state'];
       activeState = updateState(lastConnection);
@@ -110,7 +125,7 @@ class ChatCubit extends Cubit<ChatState> {
           emit(ChatStateFailure());
         } else {
           messages.add(message);
-          
+
           emit(ChatStateNewMessage());
         }
       });

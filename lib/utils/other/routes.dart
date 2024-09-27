@@ -20,11 +20,11 @@ class AppRoutes {
     '/imagePreview': (context) {
       final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
 
-      return ImageViewPage(imageFile: args['imageFile']);
+      return ImageViewPage(imageFile: args['imageFile'],chatCubit: args['chatCubit']);
     },
     '/cameraPreview': (context) {
       final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-      return  CameraPreviewScreen(chatCubit: args['chatCubit'],);
+      return  CameraPreviewScreen(chatCubit: args['chatCubit']);
     },
     '/contactScreen': (context) => const ContactsScreen(),
     '/auth/login': (context) => LoginScreen(),

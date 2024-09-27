@@ -5,6 +5,7 @@ import 'package:chat/core/presentation/state/bloc/chat/chat_cubit.dart';
 import 'package:chat/core/presentation/state/bloc/chat/chat_state.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_box.dart';
 import 'package:chat/core/presentation/ui/widgets/chat_screen_header.dart';
+import 'package:chat/core/presentation/ui/widgets/load_image.dart';
 import 'package:chat/core/presentation/ui/widgets/text_widgets/message_widget.dart';
 import 'package:chat/core/presentation/ui/widgets/voice_widget.dart';
 import 'package:chat/utils/other/extensions.dart';
@@ -33,16 +34,16 @@ class ChatScreen extends StatelessWidget {
         child: BlocProvider(
           create: (context) => ChatCubit(uid, fid),
           child: BlocConsumer<ChatCubit, ChatState>(
-            listener: (BuildContext context, ChatState state)async {
-              if(state is ChatStateVideoCall){
+            listener: (BuildContext context, ChatState state) async {
+              if (state is ChatStateVideoCall) {
                 UserModel userModel = await getUserInfoFromLocalStorage();
-                Map<String,dynamic> args = {
-                  'uid':uid.toString(),
-                  'roomID':state.roomID,
-                  'userName':userModel.username
+                Map<String, dynamic> args = {
+                  'uid': uid.toString(),
+                  'roomID': state.roomID,
+                  'userName': userModel.username
                 };
-                
-                Navigator.pushNamed(context, '/video_call',arguments:args );
+
+                Navigator.pushNamed(context, '/video_call', arguments: args);
               }
             },
             builder: (context, state) {
@@ -51,12 +52,11 @@ class ChatScreen extends StatelessWidget {
               return Column(
                 children: [
                   ChatScreenHeader(
-                    onTap: (){
-                     
-                     Map<String,dynamic> data = {};
+                      onTap: () {
+                        Map<String, dynamic> data = {};
 
-                     cubit.sendMessage(data, 'start_call');
-                    },
+                        cubit.sendMessage(data, 'start_call');
+                      },
                       screenSize: screenSize,
                       userName: userName,
                       state: cubit.activeState),
@@ -73,7 +73,6 @@ class ChatScreen extends StatelessWidget {
                                 controller: cubit.scrollController,
                                 itemCount: cubit.messages.length,
                                 itemBuilder: (context, index) {
-                                  
                                   if (cubit.messages[index].type == "text") {
                                     return MessageWidget(
                                       screenWidth: screenSize.width,
@@ -84,16 +83,21 @@ class ChatScreen extends StatelessWidget {
                                           cubit.messages[index].textContent ??
                                               cubit.messages[index].audioFile!,
                                     );
-                                  } else {
+                                  } else if (cubit.messages[index].type ==
+                                      "audio") {
                                     return VoiceWidget(
-                                      audioName: cubit.messages[index].audioFile!,
-                                     isMe: cubit.messages[index].sender == uid,
-                                     screenWidth: screenSize.width,
+                                      audioName:
+                                          cubit.messages[index].audioFile!,
+                                      isMe: cubit.messages[index].sender == uid,
+                                      screenWidth: screenSize.width,
                                       height: 50.0
                                           .responsiveHeight(screenSize.height),
-                                          );
+                                    );
+                                  } else {
+                                    return LoadImage(
+                                      image: cubit.messages[index].imageFile!,
+                                    );
                                   }
-                                 
                                 }),
                           )),
                   SizedBox(
