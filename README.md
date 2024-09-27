@@ -5,6 +5,9 @@ Welcome to the **Chat App** repository! This project is a fully featured chat ap
 Before diving into the code, I highly recommend reviewing this README to understand the app’s architecture. It will help you get familiar with the structure and make it easier to add your own custom features.
 
 
+![Logo](./UI.png)
+
+
 ## Cloning and Launching the App
 
 ### 1. **Cloning the Repository**
